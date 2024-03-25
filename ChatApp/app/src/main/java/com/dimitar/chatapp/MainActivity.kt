@@ -27,8 +27,8 @@ class MainActivity : AppCompatActivity() {
         //Connect to server
         val t = Thread {
             try {
-                val serverAddress = "10.0.2.2" // Replace with your server's IP address
-                val serverPort = 6789 // Replace with your server's port
+                val serverAddress = "10.0.2.2" // connect to local host
+                val serverPort = 6789 // server port
                 val socket = Socket(serverAddress, serverPort)
                 val outputStream = DataOutputStream(socket.getOutputStream())
 
