@@ -1,6 +1,8 @@
 package com.chatapp.dimitar
 
 import org.ktorm.database.Database
+import org.ktorm.entity.sequenceOf
+import org.ktorm.entity.toList
 import java.sql.DriverManager
 
 class DataBaseManager {
@@ -11,7 +13,7 @@ class DataBaseManager {
     )
 
     private val hostname = "localhost"
-    private val databaseName = "temp"
+    private val databaseName = "ChatAppDB"
     private val username = "root"
     private val password = "dar11na"
 
@@ -24,4 +26,9 @@ class DataBaseManager {
         val jdbcUrl = "jdbc:mysql://$hostname:3306/$databaseName?user=$username&password=$password&useSSL=false"
         ktormDatabase = Database.connect(jdbcUrl)
     }
+
+    fun getAllUsers(): List<DBUserEntity>{
+        return ktormDatabase.sequenceOf(DBUsersTable).toList()
+    }
+
 }
