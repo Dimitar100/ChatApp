@@ -15,7 +15,7 @@ class DataBaseManager {
     private val hostname = "localhost"
     private val databaseName = "ChatAppDB"
     private val username = "root"
-    private val password = "dar11na"
+    private val password = System.getenv("SQL_PASS")
 
     //private val password = System.getenv("KTOR_DB_PW")
 
