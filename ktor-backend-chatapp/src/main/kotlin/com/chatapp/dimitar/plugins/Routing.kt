@@ -18,13 +18,12 @@ fun Application.configureRouting(
     routing {
         get("/") {
             //call.respondText("Hello World!")
-            //val dbManager = DataBaseManager()
-            //call.respondText(dbManager.getAllUsers().toString())
-
-            this@routing.signIn(userDataSource, hashingService, tokenService, tokenConfig)
-            this@routing.signUp(hashingService, userDataSource)
-            this@routing.authenticate()
-            this@routing.getSecretInfo()
+            val dbManager = DataBaseManager()
+            call.respondText(dbManager.getAllUsers().toString())
         }
+        this@routing.signIn(userDataSource, hashingService, tokenService, tokenConfig)
+        this@routing.signUp(hashingService, userDataSource)
+        this@routing.authenticate()
+        this@routing.getSecretInfo()
     }
 }

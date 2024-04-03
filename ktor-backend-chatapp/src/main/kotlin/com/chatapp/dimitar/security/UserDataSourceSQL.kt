@@ -17,6 +17,6 @@ class UserDataSourceSQL(private val userDbManager: DataBaseManager) : UserDataSo
     }
 
     override suspend fun getNewUserId(): Int {
-        TODO("Not yet implemented")
+        return 3
     }
 }
