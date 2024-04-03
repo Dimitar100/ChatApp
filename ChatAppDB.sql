@@ -35,3 +35,8 @@ CREATE TABLE Users_Chats(
 	FOREIGN KEY (UserID) REFERENCES Users(ID),
     FOREIGN KEY (ChatID) REFERENCES Chats(ID)
     );
+    
+insert into Users (ID, Username, Pass, User_role) values (1, 'test1', 'pass', 'User');
+insert into Users (ID, Username, Pass, User_role) values (2, 'test2', 'pass', 'User');
+
+
