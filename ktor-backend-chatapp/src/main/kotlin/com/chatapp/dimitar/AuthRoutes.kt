@@ -38,7 +38,8 @@ fun Route.signUp(
             username = request.username,
             password = saltedHash.hash,
             salt = saltedHash.salt,
-            id = userDataSource.getNewUserId()
+            id = userDataSource.getNewUserId(),
+            userRole = "User"
         )
         val wasAcknowledged = userDataSource.insertUser(user)
         if(!wasAcknowledged)  {

@@ -1,6 +1,7 @@
 package com.chatapp.dimitar
 
 import com.chatapp.dimitar.plugins.*
+import com.chatapp.dimitar.security.UserDataSourceSQL
 import com.chatapp.dimitar.security.hashing.SHA256HashingService
 import com.chatapp.dimitar.security.token.JwtTokenService
 import com.chatapp.dimitar.security.token.TokenConfig
@@ -19,9 +20,10 @@ fun Application.module() {
         secret = System.getenv("JWT_SECRET")
     )
     val hashingService = SHA256HashingService()
+    val userDataSource = UserDataSourceSQL(DataBaseManager())
     configureSockets()
     configureSerialization()
     configureMonitoring()
     configureSecurity(tokenConfig)
-    configureRouting()
+    configureRouting(userDataSource, hashingService, tokenService, tokenConfig)
 }

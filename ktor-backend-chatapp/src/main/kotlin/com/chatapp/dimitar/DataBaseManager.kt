@@ -1,6 +1,8 @@
 package com.chatapp.dimitar
 
 import org.ktorm.database.Database
+import org.ktorm.dsl.AssignmentsBuilder
+import org.ktorm.dsl.insert
 import org.ktorm.entity.sequenceOf
 import org.ktorm.entity.toList
 import java.sql.DriverManager
@@ -29,6 +31,40 @@ class DataBaseManager {
 
     fun getAllUsers(): List<DBUserEntity>{
         return ktormDatabase.sequenceOf(DBUsersTable).toList()
+    }
+
+    fun getUser(id: Int): DBUserEntity{
+        var user: DBUserEntity? = null
+        val users: List<DBUserEntity> = ktormDatabase.sequenceOf(DBUsersTable).toList()
+        for(u in users){
+            if(id == u.id){
+                user = u
+            }
+        }
+        return user!!
+    }
+
+    fun getUser(username: String): DBUserEntity{
+        var user: DBUserEntity? = null
+        val users: List<DBUserEntity> = ktormDatabase.sequenceOf(DBUsersTable).toList()
+        for(u in users){
+            if(username == u.username){
+                user = u
+            }
+        }
+        return user!!
+    }
+
+    fun insertNewUser(user: User): Boolean {
+
+        var res = ktormDatabase.insert(DBUsersTable){
+            set(it.id, user.id)
+            set(it.username, user.username)
+            set(it.salt, user.salt)
+            set(it.password, user.password)
+            set(it.user_role, user.userRole)
+        }
+        return res == 1
     }
 
 }
