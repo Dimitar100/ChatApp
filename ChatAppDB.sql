@@ -6,6 +6,7 @@ CREATE TABLE Users(
 	ID INT NOT NULL AUTO_INCREMENT,
 	Username VARCHAR(255) NOT NULL,
     Pass VARCHAR(255) NOT NULL,
+    Salt VARCHAR(255),
     User_role ENUM('Admin', 'User') NOT NULL,
     primary key(ID)
     );
@@ -36,7 +37,9 @@ CREATE TABLE Users_Chats(
     FOREIGN KEY (ChatID) REFERENCES Chats(ID)
     );
     
+
 insert into Users (ID, Username, Pass, User_role) values (1, 'test1', 'pass', 'User');
 insert into Users (ID, Username, Pass, User_role) values (2, 'test2', 'pass', 'User');
+
 
 
