@@ -25,8 +25,6 @@ class MainActivity : AppCompatActivity() {
 
         val text = findViewById<TextView>(R.id.testText)
 
-
-
         val jsonObject = JSONObject()
         try {
             jsonObject.put("username", "ganko")
@@ -41,9 +39,6 @@ class MainActivity : AppCompatActivity() {
         val request = Request.Builder().url(authServerUrl +"signup").post(body).build()
        // val request = Request.Builder().url("https://reqres.in/api/users?page=2").build()
         //val request = Request.Builder().url("http://10.0.2.2:6789/").build()
-
-        //someTask(authClient, request).execute()
-
 
         authClient.newCall(request).enqueue(object: Callback{
             override fun onFailure(call: Call, e: IOException) {
