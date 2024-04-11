@@ -1,55 +1,62 @@
 package com.dimitar.chatapp
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import java.io.DataInputStream
-import java.io.DataOutputStream
-import java.net.Socket
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.Response
+import org.json.JSONException
+import org.json.JSONObject
+import java.io.IOException
 
 
 class MainActivity : AppCompatActivity() {
+
+    val authClient = OkHttpClient()
+    val authServerUrl = "http://10.0.2.2:6789/"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val loginButton = findViewById<Button>(R.id.Login)
-        loginButton.setOnClickListener {
-            val intent = Intent(this@MainActivity, Login::class.java)
-            startActivity(intent)
+        val text = findViewById<TextView>(R.id.testText)
+
+
+
+        val jsonObject = JSONObject()
+        try {
+            jsonObject.put("username", "ganko")
+            jsonObject.put("password", "testings")
+        } catch (e: JSONException) {
+            e.printStackTrace()
         }
-        val registerButton = findViewById<Button>(R.id.Register)
-        registerButton.setOnClickListener {
-            val intent = Intent(this@MainActivity, RegisterActivity::class.java)
-            startActivity(intent)
-        }
-        //Connect to server
-        val t = Thread {
-            try {
-                val serverAddress = "10.0.2.2" // connect to local host
-                val serverPort = 6789 // server port
-                val socket = Socket(serverAddress, serverPort)
-                val outputStream = DataOutputStream(socket.getOutputStream())
+        val mediaType = "application/json; charset=utf-8".toMediaType()
+        val body = jsonObject.toString().toRequestBody(mediaType)
 
-                // Send data to the server
-                val messageToSend = "Hello, server!"
-                outputStream.writeUTF(messageToSend)
-                outputStream.flush()
 
-                // Receive data from the server
-                val inputStream = DataInputStream(socket.getInputStream())
-                val receivedMessage = inputStream.readUTF()
-                println("Received from server: $receivedMessage")
+        val request = Request.Builder().url(authServerUrl +"signup").post(body).build()
+       // val request = Request.Builder().url("https://reqres.in/api/users?page=2").build()
+        //val request = Request.Builder().url("http://10.0.2.2:6789/").build()
 
-                // Close the socket
-                socket.close()
-            } catch (e: Exception) {
+        //someTask(authClient, request).execute()
+
+
+        authClient.newCall(request).enqueue(object: Callback{
+            override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
             }
-        }
-        
-        t.start()
-    }
 
+            override fun onResponse(call: Call, response: Response) {
+                if(response.isSuccessful){
+                    runOnUiThread{
+                        text.text = response.body!!.string()
+                    }
+                }
+            }
+        })
+    }
 }

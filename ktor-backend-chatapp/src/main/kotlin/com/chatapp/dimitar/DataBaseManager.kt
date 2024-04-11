@@ -59,7 +59,7 @@ class DataBaseManager {
     fun insertNewUser(user: User): Boolean {
 
         var res = ktormDatabase.insert(DBUsersTable){
-            set(it.id, user.id)
+            //set(it.id, user.id)
             set(it.username, user.username)
             set(it.salt, user.salt)
             set(it.password, user.password)
