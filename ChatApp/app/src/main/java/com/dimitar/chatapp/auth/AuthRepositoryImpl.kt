@@ -8,7 +8,7 @@ class AuthRepositoryImpl(
     private val prefs: SharedPreferences
 ): AuthRepository {
 
-    override suspend fun signUp(username: String, password: String): AuthResult<Unit> {
+    override fun signUp(username: String, password: String): AuthResult<Unit> {
         return try {
             api.signUp(
                 request = AuthRequest(
@@ -28,7 +28,7 @@ class AuthRepositoryImpl(
         }
     }
 
-    override suspend fun signIn(username: String, password: String): AuthResult<Unit> {
+    override fun signIn(username: String, password: String): AuthResult<Unit> {
         return try {
             val response = api.signIn(
                 request = AuthRequest(
@@ -51,7 +51,7 @@ class AuthRepositoryImpl(
         }
     }
 
-    override suspend fun authenticate(): AuthResult<Unit> {
+    override fun authenticate(): AuthResult<Unit> {
         return try {
             val token = prefs.getString("jwt", null) ?: return AuthResult.Unauthorized()
             api.authenticate("Bearer $token")
