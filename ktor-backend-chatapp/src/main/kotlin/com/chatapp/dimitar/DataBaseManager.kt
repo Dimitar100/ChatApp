@@ -54,6 +54,7 @@ class DataBaseManager {
         }
         return user!!
     }
+    
 
     fun insertNewUser(user: User): Boolean {
 
