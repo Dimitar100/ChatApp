@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         val jsonObject = JSONObject()
         try {
-            jsonObject.put("username", "ganko")
+            jsonObject.put("username", "gbanko")
             jsonObject.put("password", "testings")
         } catch (e: JSONException) {
             e.printStackTrace()
