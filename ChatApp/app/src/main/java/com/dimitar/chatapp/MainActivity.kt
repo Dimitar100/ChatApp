@@ -2,6 +2,7 @@ package com.dimitar.chatapp
 
 import android.os.Bundle
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import okhttp3.Call
 import okhttp3.Callback
@@ -16,15 +17,22 @@ import java.io.IOException
 
 
 class MainActivity : AppCompatActivity() {
-
     val authClient = OkHttpClient()
     val authServerUrl = "http://10.0.2.2:6789/"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //val viewModel: MainActivityViewModel by viewModels()
+
+
         setContentView(R.layout.activity_main)
+
 
         val text = findViewById<TextView>(R.id.testText)
 
+
+
+
+        /*
         val jsonObject = JSONObject()
         try {
             jsonObject.put("username", "gbanko")
@@ -35,10 +43,7 @@ class MainActivity : AppCompatActivity() {
         val mediaType = "application/json; charset=utf-8".toMediaType()
         val body = jsonObject.toString().toRequestBody(mediaType)
 
-
-        val request = Request.Builder().url(authServerUrl +"signup").post(body).build()
-       // val request = Request.Builder().url("https://reqres.in/api/users?page=2").build()
-        //val request = Request.Builder().url("http://10.0.2.2:6789/").build()
+        val request = Request.Builder().url(authServerUrl +"signin").post(body).build()
 
         authClient.newCall(request).enqueue(object: Callback{
             override fun onFailure(call: Call, e: IOException) {
@@ -52,6 +57,6 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-        })
+        })*/
     }
 }
