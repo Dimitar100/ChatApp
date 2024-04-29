@@ -26,31 +26,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //val viewModel: MainActivityViewModel by viewModels()
 
-
         setContentView(R.layout.activity_main)
         val text = findViewById<TextView>(R.id.testText)
-        val switchBtn = findViewById<TextView>(R.id.button)
+        val textSwitch = findViewById<TextView>(R.id.textSwitch)
         val loginFragment = findViewById<View>(R.id.signInFragment)
         val registerFragment = findViewById<View>(R.id.signUpFragment)
         registerFragment.visibility = View.GONE
+        text.text = "Don't have an account? "
 
-
-        switchBtn.setOnClickListener {
-            if(switchBtn.text.toString() == "Register"){
+        textSwitch.setOnClickListener {
+            if(textSwitch.text.toString() == "Register"){
                 loginFragment.visibility = View.GONE
                 registerFragment.visibility = View.VISIBLE
-                switchBtn.text = "Login"
+                textSwitch.text = "Login"
+                text.text = "Already have an account? "
             }else{
                 registerFragment.visibility = View.GONE
                 loginFragment.visibility = View.VISIBLE
-                switchBtn.text = "Register"
+                textSwitch.text = "Register"
+                text.text = "Don't have an account? "
             }
-
         }
-
-
-
-
         /*
         val jsonObject = JSONObject()
         try {
