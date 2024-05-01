@@ -34,7 +34,7 @@ class SignInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
+       // viewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
         val button = requireView().findViewById(R.id.loginBtn) as Button
         val username = requireView().findViewById(R.id.editTextUsername) as EditText
         val password = requireView().findViewById(R.id.editTextPassword) as EditText
