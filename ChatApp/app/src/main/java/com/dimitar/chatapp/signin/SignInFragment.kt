@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import com.dimitar.chatapp.R
 
 class SignInFragment : Fragment() {
@@ -35,11 +36,11 @@ class SignInFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
         val button = requireView().findViewById(R.id.loginBtn) as Button
+        val username = requireView().findViewById(R.id.editTextUsername) as EditText
+        val password = requireView().findViewById(R.id.editTextPassword) as EditText
 
         button.setOnClickListener{
-            Log.d("TEST", "This is my message");
-            val signInRepository = SignInRepository("gbanko", "testings")
-            signInRepository.sendSignInReq()
+            viewModel.sendSignInReq(username.text.toString(), password.text.toString())
         }
     }
 }

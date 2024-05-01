@@ -44,6 +44,8 @@ class SignInRepository(
                 if(response.isSuccessful){
                     Log.d("TEST", response.body!!.string());
 
+                }else{
+                    Log.d("TEST", "FAILED!!!");
                 }
             }
         })

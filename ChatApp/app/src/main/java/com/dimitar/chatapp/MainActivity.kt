@@ -47,31 +47,5 @@ class MainActivity : AppCompatActivity() {
                 text.text = "Don't have an account? "
             }
         }
-        /*
-        val jsonObject = JSONObject()
-        try {
-            jsonObject.put("username", "gbanko")
-            jsonObject.put("password", "testings")
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
-        val mediaType = "application/json; charset=utf-8".toMediaType()
-        val body = jsonObject.toString().toRequestBody(mediaType)
-
-        val request = Request.Builder().url(authServerUrl +"signin").post(body).build()
-
-        authClient.newCall(request).enqueue(object: Callback{
-            override fun onFailure(call: Call, e: IOException) {
-                e.printStackTrace()
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                if(response.isSuccessful){
-                    runOnUiThread{
-                        text.text = response.body!!.string()
-                    }
-                }
-            }
-        })*/
     }
 }
