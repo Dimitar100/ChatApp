@@ -37,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        val intent = Intent(this, MainActivity::class.java)
+       // val intent = Intent(this, MainActivity::class.java)
 // To pass any data to next activity
         //intent.putExtra("keyIdentifier", value)
 // start your next activity

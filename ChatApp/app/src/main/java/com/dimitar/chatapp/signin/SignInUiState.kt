@@ -1,5 +1,6 @@
 package com.dimitar.chatapp.signin
 
 data class SignInUiState(
-    val isSignedIn: Boolean = false
+    var isSignedIn: Boolean = false,
+    var jwtToken: String = ""
 )

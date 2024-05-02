@@ -1,28 +1,36 @@
 package com.dimitar.chatapp.signin
 
 import android.util.Log
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.RequestBody.Companion.toRequestBody
-import org.json.JSONException
-import org.json.JSONObject
 import okhttp3.Call
 import okhttp3.Callback
-import okhttp3.MediaType.*
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.RequestBody.*
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
-
+import org.json.JSONException
+import org.json.JSONObject
 import java.io.IOException
 
 class SignInRepository(
+    private val viewModel: SignInViewModel,
     private val username: String,
     private val password: String
 ) {
-    fun sendSignInReq() : Boolean{
-        var result = false
+
+
+    interface NetworkCallback {
+        fun onSuccess(response: String)
+        fun onFailure()
+    }
+
+
+    fun sendSignInReq() : String{
+        var result = ""
         val authClient = OkHttpClient()
         val authServerUrl = "http://10.0.2.2:6789/"
+
+
         val jsonObject = JSONObject()
         try {
             jsonObject.put("username", username)
@@ -42,14 +50,15 @@ class SignInRepository(
 
             override fun onResponse(call: Call, response: Response) {
                 if(response.isSuccessful){
-                    Log.d("TEST", response.body!!.string());
+                   // viewModel.updateState(response.body!!.string())
+                    result = response.body!!.string()
+                    viewModel.updateUiState(result)
 
                 }else{
-                    Log.d("TEST", "FAILED!!!");
+                    Log.d("TEST", "Login request FAILED!!!");
                 }
             }
         })
-
-        return result
+       return result
     }
 }
