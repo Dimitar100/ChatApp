@@ -33,13 +33,7 @@ class DataBaseManager {
     }
 
     fun getUser(id: Int): DBUserEntity{
-        var user: DBUserEntity? = null
-        val users: List<DBUserEntity> = ktormDatabase.sequenceOf(DBUsersTable).toList()
-        for(u in users){
-            if(id == u.id){
-                user = u
-            }
-        }
+        val user: DBUserEntity? = ktormDatabase.sequenceOf(DBUsersTable).find {  it.id eq id }
         return user!!
     }
 
