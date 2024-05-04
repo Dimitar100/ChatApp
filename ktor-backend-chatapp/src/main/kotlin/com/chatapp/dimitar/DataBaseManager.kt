@@ -1,18 +1,16 @@
 package com.chatapp.dimitar
 
 import org.ktorm.database.Database
-import org.ktorm.dsl.AssignmentsBuilder
-import org.ktorm.dsl.insert
+import org.ktorm.dsl.*
+import org.ktorm.entity.find
 import org.ktorm.entity.sequenceOf
 import org.ktorm.entity.toList
+import org.ktorm.expression.SqlExpression
 import java.sql.DriverManager
 
 class DataBaseManager {
 
     //Connection to MySQL DB
-    var con = DriverManager.getConnection(
-        "jdbc:mysql://localhost:3306/temp", "root", "dar11na"
-    )
 
     private val hostname = "localhost"
     private val databaseName = "ChatAppDB"
@@ -27,6 +25,7 @@ class DataBaseManager {
     init {
         val jdbcUrl = "jdbc:mysql://$hostname:3306/$databaseName?user=$username&password=$password&useSSL=false"
         ktormDatabase = Database.connect(jdbcUrl)
+       // ktormDatabase.
     }
 
     fun getAllUsers(): List<DBUserEntity>{
@@ -45,13 +44,7 @@ class DataBaseManager {
     }
 
     fun getUser(username: String): DBUserEntity{
-        var user: DBUserEntity? = null
-        val users: List<DBUserEntity> = ktormDatabase.sequenceOf(DBUsersTable).toList()
-        for(u in users){
-            if(username == u.username){
-                user = u
-            }
-        }
+        val user: DBUserEntity? = ktormDatabase.sequenceOf(DBUsersTable).find {  it.username eq username }
         return user!!
     }
     
