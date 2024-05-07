@@ -114,7 +114,7 @@ fun Route.getSecretInfo() {
         get("secret") {
             val principal = call.principal<JWTPrincipal>()
             val userId = principal?.getClaim("userId", String::class)
-            call.respond(HttpStatusCode.OK, "Your userId is $userId")
+            call.respond(HttpStatusCode.OK, "secret: Your userId is $userId")
         }
     }
 }

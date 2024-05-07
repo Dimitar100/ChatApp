@@ -1,5 +1,7 @@
 package com.chatapp.dimitar
 
+import com.chatapp.dimitar.chats.Chat
+import com.chatapp.dimitar.chats.DBChatsTable
 import org.ktorm.database.Database
 import org.ktorm.dsl.*
 import org.ktorm.entity.find
@@ -51,6 +53,15 @@ class DataBaseManager {
             set(it.salt, user.salt)
             set(it.password, user.password)
             set(it.user_role, user.userRole)
+        }
+        return res == 1
+    }
+
+    fun createNewChat(chat: Chat): Boolean {
+
+        var res = ktormDatabase.insert(DBChatsTable){
+            //set(it.id, user.id)
+            set(it.chatName, chat.name)
         }
         return res == 1
     }
