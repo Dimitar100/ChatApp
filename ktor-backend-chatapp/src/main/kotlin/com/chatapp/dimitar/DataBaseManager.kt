@@ -62,13 +62,13 @@ class DataBaseManager {
 //Chat operations ========================================================================
     fun createNewChat(userId: Int, chat: Chat): Boolean {
 
-        var chatID = ktormDatabase.insertAndGenerateKey(DBChatsTable){
+        val chatID = ktormDatabase.insertAndGenerateKey(DBChatsTable){
             //set(it.id, user.id)
             set(it.chatName, chat.name)
             set(it.creatorId, userId)
         }
 
-        var res = ktormDatabase.insert(DBUserChatTable){
+        val res = ktormDatabase.insert(DBUserChatTable){
             set(it.userId, userId)
             set(it.chatId, chatID)
         }
