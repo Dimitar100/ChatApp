@@ -1,4 +1,4 @@
-package com.chatapp.dimitar.security
+package com.chatapp.dimitar
 
 import com.chatapp.dimitar.DBUserEntity
 import com.chatapp.dimitar.DataBaseManager
