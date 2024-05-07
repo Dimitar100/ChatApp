@@ -11,8 +11,8 @@ import org.ktorm.schema.varchar
 
 object DBUserChatTable: Table<DBUserChatEntity>("Users"){
     val id = int("ID").primaryKey().bindTo { it.id }
-    val userId = int("UserID").references(DBUsersTable){it.user}
-    val chatId = int("ChatID").references(DBChatsTable){it.chat}
+    val userId = int("UserID").references(DBUsersTable){it.userId}
+    val chatId = int("ChatID").references(DBChatsTable){it.chatId}
 
 }
 
@@ -21,7 +21,7 @@ interface DBUserChatEntity: Entity<DBUserChatEntity> {
     companion object : Entity.Factory<DBUserChatEntity>()
 
     val id: Int
-    val user: DBUserEntity
-    val chat: DBChatEntity
+    val userId: DBUserEntity
+    val chatId: DBChatEntity
 
 }

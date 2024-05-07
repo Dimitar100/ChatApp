@@ -1,9 +1,12 @@
 package com.chatapp.dimitar
 
 import com.chatapp.dimitar.chats.Chat
+import com.chatapp.dimitar.chats.DBChatEntity
 import com.chatapp.dimitar.chats.DBChatsTable
+import com.chatapp.dimitar.chats.DBUserChatTable
 import org.ktorm.database.Database
 import org.ktorm.dsl.*
+import org.ktorm.entity.filter
 import org.ktorm.entity.find
 import org.ktorm.entity.sequenceOf
 import org.ktorm.entity.toList
@@ -56,14 +59,27 @@ class DataBaseManager {
         }
         return res == 1
     }
+//Chat operations ========================================================================
+    fun createNewChat(userId: Int, chat: Chat): Boolean {
 
-    fun createNewChat(chat: Chat): Boolean {
-
-        var res = ktormDatabase.insert(DBChatsTable){
+        var chatID = ktormDatabase.insertAndGenerateKey(DBChatsTable){
             //set(it.id, user.id)
             set(it.chatName, chat.name)
+            set(it.creatorId, userId)
+        }
+
+        var res = ktormDatabase.insert(DBUserChatTable){
+            set(it.userId, userId)
+            set(it.chatId, chatID)
         }
         return res == 1
+    }
+
+    fun getUsersChats(userId: Int): List<DBChatEntity>{
+        var temp = ktormDatabase.sequenceOf(DBUserChatTable).filter { it.userId eq userId }.toList()
+        var res : List<DBChatEntity> = ArrayList();
+        temp.forEach { res.plus(it.chatId) }
+        return res
     }
 
 }

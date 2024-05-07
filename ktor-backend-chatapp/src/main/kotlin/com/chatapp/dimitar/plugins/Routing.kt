@@ -2,8 +2,9 @@ package com.chatapp.dimitar.plugins
 
 import com.chatapp.dimitar.DataBaseManager
 import com.chatapp.dimitar.*
-import com.chatapp.dimitar.requests.createChat
-import com.chatapp.dimitar.requests.deleteChat
+import com.chatapp.dimitar.chats.ChatDataSource
+import com.chatapp.dimitar.routes.createChat
+import com.chatapp.dimitar.routes.deleteChat
 import com.chatapp.dimitar.security.hashing.HashingService
 import com.chatapp.dimitar.security.token.TokenConfig
 import com.chatapp.dimitar.security.token.TokenService
@@ -13,6 +14,7 @@ import io.ktor.server.routing.*
 
 fun Application.configureRouting(
     userDataSource: UserDataSource,
+    chatDataSource: ChatDataSource,
     hashingService: HashingService,
     tokenService: TokenService,
     tokenConfig: TokenConfig
@@ -27,7 +29,7 @@ fun Application.configureRouting(
         this@routing.signUp(hashingService, userDataSource)
         this@routing.authenticate()
         this@routing.getSecretInfo()
-        this@routing.createChat()
+        this@routing.createChat(chatDataSource)
         this@routing.deleteChat()
     }
 }

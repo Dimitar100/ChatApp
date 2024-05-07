@@ -1,5 +1,7 @@
 package com.chatapp.dimitar.chats
 
 data class Chat(
-    val name: String
+    val id: Int,
+    val name: String,
+    val creatorId: Int
 )

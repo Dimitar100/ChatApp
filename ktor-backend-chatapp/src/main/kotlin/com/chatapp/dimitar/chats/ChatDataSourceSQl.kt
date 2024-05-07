@@ -8,8 +8,8 @@ class ChatDataSourceSQl(private val chatDbManager: DataBaseManager): ChatDataSou
         TODO("Not yet implemented")
     }
 
-    override suspend fun createChat(chat: Chat): Boolean {
-        TODO("Not yet implemented")
+    override suspend fun createChat(userId: Int, chat: Chat): Boolean {
+        return chatDbManager.createNewChat(userId, chat)
     }
 
     override suspend fun deleteChat(id: Int): Boolean {
@@ -22,5 +22,9 @@ class ChatDataSourceSQl(private val chatDbManager: DataBaseManager): ChatDataSou
 
     override suspend fun removeParticipantInChat(user: User, chat: Chat): Boolean {
         TODO("Not yet implemented")
+    }
+
+    override suspend fun getUserChats(userId: Int): List<DBChatEntity> {
+        return chatDbManager.getUsersChats(userId)
     }
 }

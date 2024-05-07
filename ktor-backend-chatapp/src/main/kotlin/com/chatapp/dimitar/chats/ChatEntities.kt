@@ -10,6 +10,7 @@ import org.ktorm.schema.varchar
 object DBChatsTable: Table<DBChatEntity>("Chats"){
     val id = int("ID").primaryKey().bindTo { it.id }
     val chatName = varchar("ChatName").bindTo { it.chatName }
+    val creatorId = int("CreatorID").bindTo { it.creatorId }
 }
 
 interface DBChatEntity: Entity<DBChatEntity> {
@@ -18,4 +19,5 @@ interface DBChatEntity: Entity<DBChatEntity> {
 
     val id: Int
     val chatName: String
+    val creatorId: Int
 }
