@@ -16,12 +16,13 @@ class HomeViewModel(
     private val jwt: String
 ) : ViewModel() {
 
-
-    //var jwt: String = "TEST"
-
     private var _text = MutableLiveData<String>().apply {
         value = jwt
     }
     val text: LiveData<String> = _text
+
+    fun getAllChats(){
+        
+    }
 
 }

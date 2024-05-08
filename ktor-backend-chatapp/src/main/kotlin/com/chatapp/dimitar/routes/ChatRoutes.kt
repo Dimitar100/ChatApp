@@ -46,3 +46,17 @@ fun Route.deleteChat() {
     }
 }
 
+fun Route.getAllChats(chatDataSource: ChatDataSource) {
+    authenticate {
+        get("chat/get/all") {
+
+            val principal = call.principal<JWTPrincipal>()
+            val userId = principal?.getClaim("userId", String::class)
+
+            val chats = chatDataSource.getUserChats(userId!!.toInt())
+            val temp = chats[0]
+            call.respond(HttpStatusCode.OK, "chats: Your chats: $chats")
+        }
+    }
+}
+

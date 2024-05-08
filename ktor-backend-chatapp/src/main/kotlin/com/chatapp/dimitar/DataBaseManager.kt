@@ -76,9 +76,13 @@ class DataBaseManager {
     }
 
     fun getUsersChats(userId: Int): List<DBChatEntity>{
-        var temp = ktormDatabase.sequenceOf(DBUserChatTable).filter { it.userId eq userId }.toList()
-        var res : List<DBChatEntity> = ArrayList();
-        temp.forEach { res.plus(it.chatId) }
+        val temp = ktormDatabase.sequenceOf(DBUserChatTable).filter { it.userId eq userId }.toList()
+        var res : List<DBChatEntity>  = ArrayList()
+
+        for(element in temp){
+            res = res.plus(element.chatId)
+        }
+        //temp.forEach { res.plus(it.chatId) }
         return res
     }
 

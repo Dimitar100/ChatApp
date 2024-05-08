@@ -5,6 +5,7 @@ import com.chatapp.dimitar.*
 import com.chatapp.dimitar.chats.ChatDataSource
 import com.chatapp.dimitar.routes.createChat
 import com.chatapp.dimitar.routes.deleteChat
+import com.chatapp.dimitar.routes.getAllChats
 import com.chatapp.dimitar.security.hashing.HashingService
 import com.chatapp.dimitar.security.token.TokenConfig
 import com.chatapp.dimitar.security.token.TokenService
@@ -31,5 +32,6 @@ fun Application.configureRouting(
         this@routing.getSecretInfo()
         this@routing.createChat(chatDataSource)
         this@routing.deleteChat()
+        this@routing.getAllChats(chatDataSource)
     }
 }

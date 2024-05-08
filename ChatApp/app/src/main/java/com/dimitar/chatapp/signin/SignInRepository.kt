@@ -55,9 +55,6 @@ class SignInRepository(
                 if(response.isSuccessful){
                    // viewModel.updateState(response.body!!.string())
                     result = response.body!!.string()
-
-                    var temp = response.body
-                    Log.d("TTTT", temp!!.contentType().toString())
                     val json = Json { ignoreUnknownKeys = true }
                     val jsonObject = json.parseToJsonElement(result).jsonObject
 
