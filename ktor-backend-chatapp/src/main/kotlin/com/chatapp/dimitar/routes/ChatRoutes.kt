@@ -57,23 +57,15 @@ fun Route.getAllChats(chatDataSource: ChatDataSource) {
 
             val chats = chatDataSource.getUserChats(userId!!.toInt())
 
-            var responseData : List<Chat> = ArrayList()
-            chats.forEach {
-                responseData = responseData.plus(Chat(it.id, it.chatName, it.creatorId.id));
-               // var jsonChat = JsonObject()
-                //responseData = responseData.plus());
-            }
-
+        //    var responseData : List<Chat> = ArrayList()
             var responseDataJson : List<JsonObject> = ArrayList()
-            responseData.forEach {
-                val id = JsonPrimitive(it.id)
-                val name = JsonPrimitive(it.name)
-                val creatorId = JsonPrimitive(it.creatorId)
 
+            chats.forEach {
+               // responseData = responseData.plus(Chat(it.id, it.chatName, it.creatorId.id));
                 val hashMap = hashMapOf(
-                    "id" to id,
-                    "name" to name,
-                    "creatorId" to creatorId
+                    "id" to JsonPrimitive(it.id),
+                    "name" to JsonPrimitive(it.chatName),
+                    "creatorId" to JsonPrimitive(it.creatorId.id)
                 )
                 val jsonObject = JsonObject(hashMap)
                 responseDataJson = responseDataJson.plus(jsonObject)
@@ -81,8 +73,6 @@ fun Route.getAllChats(chatDataSource: ChatDataSource) {
 
             val jsonArr = JsonArray(responseDataJson)
             call.respond(HttpStatusCode.OK, jsonArr)
-
-
         }
     }
 }
