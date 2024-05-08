@@ -31,7 +31,7 @@ fun Route.createChat(chatDataSource: ChatDataSource) {
                 creatorId = userId!!.toInt()
             )
             chatDataSource.createChat(userId!!.toInt(), chat)
-           // call.respond(HttpStatusCode.OK, "chat: Your userId is $userId")
+            call.respond(HttpStatusCode.OK, "Chat is created")
         }
     }
 }

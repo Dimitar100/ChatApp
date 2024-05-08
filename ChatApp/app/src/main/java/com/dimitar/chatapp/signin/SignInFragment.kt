@@ -42,12 +42,13 @@ class SignInFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.uiState.collect {
-                Log.d("TEST", it.jwtToken)
+               // Log.d("TEST", it.jwtToken)
                 if(it.isSignedIn){
                     val intent = Intent(
                         activity,
                         MainActivity::class.java
                     )
+                    intent.putExtra("JWT", it.jwtToken)
                     startActivity(intent)
                 }
 
