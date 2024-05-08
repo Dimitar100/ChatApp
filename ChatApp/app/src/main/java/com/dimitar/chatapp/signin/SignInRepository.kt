@@ -21,13 +21,6 @@ class SignInRepository(
     private val password: String
 ) {
 
-
-    interface NetworkCallback {
-        fun onSuccess(response: String)
-        fun onFailure()
-    }
-
-
     fun sendSignInReq() : String{
         var result = ""
         val authClient = OkHttpClient()
