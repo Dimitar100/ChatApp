@@ -44,6 +44,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.6.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.6.2")
+
     val activity_version = "1.9.0"
     val fragment_version = "1.6.2"
 

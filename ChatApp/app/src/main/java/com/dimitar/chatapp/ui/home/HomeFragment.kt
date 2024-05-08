@@ -27,14 +27,7 @@ class HomeFragment : Fragment() {
 
         val jwt = requireActivity().getIntent().getExtras()!!.getString("JWT");
 
-
-
-        //val homeViewModel = ViewModelProvider(this).get(HomeViewModel(jwt!!)::class.java)
-        //val homeViewModel: HomeViewModel by viewModels { HomeViewModel.Factory }
         val homeViewModel: HomeViewModel by viewModels { HomeViewModelFactory(jwt!!) }
-
-
-
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root

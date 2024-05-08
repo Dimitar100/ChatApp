@@ -1,6 +1,9 @@
 package com.dimitar.chatapp.signin
 
 import android.util.Log
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaType
@@ -52,7 +55,14 @@ class SignInRepository(
                 if(response.isSuccessful){
                    // viewModel.updateState(response.body!!.string())
                     result = response.body!!.string()
-                    viewModel.updateUiState(result)
+
+                    var temp = response.body
+                    Log.d("TTTT", temp!!.contentType().toString())
+                    val json = Json { ignoreUnknownKeys = true }
+                    val jsonObject = json.parseToJsonElement(result).jsonObject
+
+                    val token = jsonObject["token"]?.jsonPrimitive?.content
+                    viewModel.updateUiState(token!!)
 
                 }else{
                     Log.d("TEST", "Login request FAILED!!!");
