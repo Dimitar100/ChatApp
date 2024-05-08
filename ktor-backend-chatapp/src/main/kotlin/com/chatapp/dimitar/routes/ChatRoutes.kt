@@ -4,6 +4,7 @@ import com.chatapp.dimitar.chats.Chat
 import com.chatapp.dimitar.chats.ChatDataSource
 import com.chatapp.dimitar.requests.AuthRequest
 import com.chatapp.dimitar.requests.CreateChatRequest
+import com.chatapp.dimitar.responses.AuthResponse
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
@@ -11,9 +12,10 @@ import io.ktor.server.auth.jwt.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-
-
-
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 
 
 fun Route.createChat(chatDataSource: ChatDataSource) {
@@ -54,8 +56,33 @@ fun Route.getAllChats(chatDataSource: ChatDataSource) {
             val userId = principal?.getClaim("userId", String::class)
 
             val chats = chatDataSource.getUserChats(userId!!.toInt())
-            val temp = chats[0]
-            call.respond(HttpStatusCode.OK, "chats: Your chats: $chats")
+
+            var responseData : List<Chat> = ArrayList()
+            chats.forEach {
+                responseData = responseData.plus(Chat(it.id, it.chatName, it.creatorId.id));
+               // var jsonChat = JsonObject()
+                //responseData = responseData.plus());
+            }
+
+            var responseDataJson : List<JsonObject> = ArrayList()
+            responseData.forEach {
+                val id = JsonPrimitive(it.id)
+                val name = JsonPrimitive(it.name)
+                val creatorId = JsonPrimitive(it.creatorId)
+
+                val hashMap = hashMapOf(
+                    "id" to id,
+                    "name" to name,
+                    "creatorId" to creatorId
+                )
+                val jsonObject = JsonObject(hashMap)
+                responseDataJson = responseDataJson.plus(jsonObject)
+            }
+
+            val jsonArr = JsonArray(responseDataJson)
+            call.respond(HttpStatusCode.OK, jsonArr)
+
+
         }
     }
 }

@@ -22,7 +22,7 @@ class HomeViewModel(
     val text: LiveData<String> = _text
 
     fun getAllChats(){
-        
+
     }
 
 }
