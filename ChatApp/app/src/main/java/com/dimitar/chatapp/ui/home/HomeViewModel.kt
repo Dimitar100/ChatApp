@@ -74,6 +74,11 @@ class HomeViewModel(
         return jwt
     }
 
+    fun createChat(chatName: String, participantName: String){
+        val chatRepo = ChatRepository(this)
+        chatRepo.createChat(chatName, participantName)
+    }
+
 
 
 }

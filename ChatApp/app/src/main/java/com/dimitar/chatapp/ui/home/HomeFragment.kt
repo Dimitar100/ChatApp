@@ -71,6 +71,14 @@ class HomeFragment : Fragment() {
             createChatDialog.show()
         }
 
+        //Create Chat dialog elemts
+        val chatName: TextView = createChatDialog.findViewById(R.id.editTextChatName)
+        val chatParticipantName: TextView = createChatDialog.findViewById(R.id.editTextAddUser)
+        val createChatBtn: Button = createChatDialog.findViewById(R.id.buttonCreate)
+
+        createChatBtn.setOnClickListener{
+            homeViewModel.createChat(chatName.text.toString(), chatParticipantName.text.toString())
+        }
 
 
         val recyclerView: RecyclerView = requireView().findViewById(R.id.recyclerViewChats)
