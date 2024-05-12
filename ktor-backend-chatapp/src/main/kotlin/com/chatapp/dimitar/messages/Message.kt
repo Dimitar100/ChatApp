@@ -9,5 +9,5 @@ data class Message(
     val content: String,
     val senderId: Int,
     val chatId: Int,
-    val timestamp: Timestamp
+    val timestamp: Long
 )

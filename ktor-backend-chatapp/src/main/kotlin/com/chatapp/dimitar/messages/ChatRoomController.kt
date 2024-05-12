@@ -13,12 +13,10 @@ class ChatRoomController(
 
     fun onJoin(
         user: String,
-        sessionId: String,
         socket: WebSocketSession
     ) {
         members[user] = ChatRoomMember(
             username = user,
-            sessionId = sessionId,
             socket = socket
         )
     }
@@ -30,7 +28,7 @@ class ChatRoomController(
                 content = messageContent,
                 senderId = senderId,
                 chatId = chatId,
-                timestamp = Timestamp(System.currentTimeMillis())
+                timestamp = System.currentTimeMillis()
             )
             messageDataSource.sendMessage(message)
 
