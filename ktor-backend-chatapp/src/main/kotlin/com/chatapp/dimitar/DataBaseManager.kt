@@ -114,7 +114,7 @@ class DataBaseManager {
         return res
     }
 
-    fun sendMessage(message: Message): Boolean{
+    fun insertMessage(message: Message): Boolean{
         var res = ktormDatabase.insert(DBMessagesTable){
             //set(it.id, user.id)
             set(it.content, message.content)
