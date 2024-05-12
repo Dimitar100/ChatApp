@@ -4,6 +4,9 @@ import com.chatapp.dimitar.chats.Chat
 import com.chatapp.dimitar.chats.DBChatEntity
 import com.chatapp.dimitar.chats.DBChatsTable
 import com.chatapp.dimitar.chats.DBUserChatTable
+import com.chatapp.dimitar.messages.DBMessageEntity
+import com.chatapp.dimitar.messages.DBMessagesTable
+import com.chatapp.dimitar.messages.Message
 import org.ktorm.database.Database
 import org.ktorm.dsl.*
 import org.ktorm.entity.filter
@@ -98,5 +101,29 @@ class DataBaseManager {
         //temp.forEach { res.plus(it.chatId) }
         return res
     }
+
+    //Message Operations =========================================================================================
+    fun getChatsMessages(chatId: Int): List<DBMessageEntity>{
+        val temp = ktormDatabase.sequenceOf(DBMessagesTable).filter { it.chatId eq chatId }.toList()
+        var res : List<DBMessageEntity>  = ArrayList()
+
+        for(element in temp){
+            res = res.plus(element)
+        }
+        //temp.forEach { res.plus(it.chatId) }
+        return res
+    }
+
+    fun sendMessage(message: Message): Boolean{
+        var res = ktormDatabase.insert(DBMessagesTable){
+            //set(it.id, user.id)
+            set(it.content, message.content)
+            set(it.chatId, message.chatId)
+            set(it.senderId, message.senderId)
+            set(it.timestamp, message.timestamp)
+        }
+        return res == 1
+    }
+
 
 }

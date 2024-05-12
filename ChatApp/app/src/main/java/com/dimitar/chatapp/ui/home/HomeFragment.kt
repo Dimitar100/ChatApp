@@ -41,10 +41,6 @@ class HomeFragment : Fragment() {
 
 //        val recyclerView: RecyclerView = requireView().findViewById(R.id.recyclerViewChats)
 
-
-
-
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
