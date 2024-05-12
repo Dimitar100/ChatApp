@@ -8,33 +8,35 @@ import io.ktor.server.auth.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
+import io.ktor.websocket.*
+import kotlinx.coroutines.channels.consumeEach
 
-/*fun Route.chatSocket(roomController: ChatRoomController) {
+fun Route.chatSocket(roomController: ChatRoomController) {
     webSocket("/chat-socket") {
         val session = call
 
         try {
             roomController.onJoin(
-                username = session.username,
+                user = "mitko",
                 socket = this
             )
             incoming.consumeEach { frame ->
                 if(frame is Frame.Text) {
                     roomController.sendMessage(
-                        senderUsername = session.username,
-                        message = frame.readText()
+                        senderId = 2,
+                        content=  frame.readText(),
+                        chatId = 0
                     )
                 }
             }
-        } catch(e: MemberAlreadyExistsException) {
-            call.respond(HttpStatusCode.Conflict)
+
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
-            roomController.tryDisconnect(session.username)
+            roomController.tryDisconnect("mitko")
         }
     }
-}*/
+}
 
 /*fun Route.getAllMessages(roomController: ChatRoomController) {
     authenticate {

@@ -21,11 +21,11 @@ class ChatRoomController(
         )
     }
 
-    suspend fun sendMessage(senderId: Int, messageContent: String, chatId: Int) {
+    suspend fun sendMessage(senderId: Int, content: String, chatId: Int) {
         members.values.forEach { member ->
             val message = Message(
                 id = 0,
-                content = messageContent,
+                content = content,
                 senderId = senderId,
                 chatId = chatId,
                 timestamp = System.currentTimeMillis()
