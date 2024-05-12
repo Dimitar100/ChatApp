@@ -14,7 +14,7 @@ class ChatAdapter(
     //Setup variables to hold the instance of the views defined in your recyclerView item layout
     //Kinda like the onCreate method in an Activity
     inner class ItemViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val name: TextView = view.findViewById(R.id.TextChatId)
+        val name: TextView = view.findViewById(R.id.textChatName)
         val creator: TextView = view.findViewById(R.id.textChatCreator)
         val chatId: TextView = view.findViewById(R.id.TextChatId)
     }
@@ -32,7 +32,7 @@ class ChatAdapter(
         val chat: Chat = data[position]
 
         holder.name.text = chat.chatName
-        holder.creator.text = chat.chatCreator
+        holder.creator.text = "Creator: ${chat.chatCreator}"
         holder.chatId.text = chat.chatId.toString()
     }
 

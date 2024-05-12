@@ -1,5 +1,6 @@
 package com.chatapp.dimitar.routes
 
+import com.chatapp.dimitar.UserDataSource
 import com.chatapp.dimitar.chats.Chat
 import com.chatapp.dimitar.chats.ChatDataSource
 import com.chatapp.dimitar.requests.AuthRequest
@@ -18,7 +19,7 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 
 
-fun Route.createChat(chatDataSource: ChatDataSource) {
+fun Route.createChat(chatDataSource: ChatDataSource, userDataSource: UserDataSource) {
     authenticate {
         post("chat/create") {
             val request = call.receiveNullable<CreateChatRequest>() ?: kotlin.run {
@@ -32,7 +33,7 @@ fun Route.createChat(chatDataSource: ChatDataSource) {
                 name = request.name,
                 creatorId = userId!!.toInt()
             )
-            chatDataSource.createChat(userId!!.toInt(), chat)
+            chatDataSource.createChat(userId!!.toInt(), userDataSource.getUserByUsername(request.participant)!!.id, chat)
             call.respond(HttpStatusCode.OK, "Chat is created")
         }
     }

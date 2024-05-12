@@ -1,5 +1,6 @@
 package com.dimitar.chatapp.ui.home
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -17,7 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dimitar.chatapp.MainActivity
 import com.dimitar.chatapp.R
-import com.dimitar.chatapp.databinding.FragmentHomeBinding
+import com.dimitar.chatapp.databinding.*
 import com.dimitar.chatapp.signin.SignInViewModel
 import kotlinx.coroutines.launch
 
@@ -59,6 +60,18 @@ class HomeFragment : Fragment() {
         //jwt = requireActivity().intent.extras!!.getString("JWT")!!
         jwt = requireActivity().intent.extras!!.getString("JWT")!!
         val homeViewModel: HomeViewModel by viewModels { HomeViewModelFactory(jwt) }
+
+        val createChatDialog = Dialog(requireActivity())
+        createChatDialog.setContentView(R.layout.create_chat_dialog)
+        createChatDialog.window!!.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        createChatDialog.setCancelable(true)
+
+        val addChatBtn: Button = requireView().findViewById(R.id.createChatBtn)
+        addChatBtn.setOnClickListener{
+            createChatDialog.show()
+        }
+
+
 
         val recyclerView: RecyclerView = requireView().findViewById(R.id.recyclerViewChats)
         homeViewModel.getAllChats()

@@ -30,7 +30,7 @@ fun Application.configureRouting(
         this@routing.signUp(hashingService, userDataSource)
         this@routing.authenticate()
         this@routing.getSecretInfo()
-        this@routing.createChat(chatDataSource)
+        this@routing.createChat(chatDataSource, userDataSource)
         this@routing.deleteChat()
         this@routing.getAllChats(chatDataSource)
     }

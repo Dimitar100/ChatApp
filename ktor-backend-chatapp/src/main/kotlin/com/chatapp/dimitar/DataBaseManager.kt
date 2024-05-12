@@ -60,7 +60,7 @@ class DataBaseManager {
         return res == 1
     }
 //Chat operations ========================================================================
-    fun createNewChat(userId: Int, chat: Chat): Boolean {
+    fun createNewChat(creatorId: Int, userId: Int, chat: Chat): Boolean {
 
         val chatID = ktormDatabase.insertAndGenerateKey(DBChatsTable){
             //set(it.id, user.id)
@@ -69,8 +69,21 @@ class DataBaseManager {
         }
 
         val res = ktormDatabase.insert(DBUserChatTable){
+            set(it.userId, creatorId)
+            set(it.chatId, chatID)
+        }
+
+        val res2 = ktormDatabase.insert(DBUserChatTable){
             set(it.userId, userId)
             set(it.chatId, chatID)
+        }
+        return res == 1 && res2 ==1
+    }
+
+    fun addParticipantToChat(user: String, chatId: Int): Boolean{
+        val res = ktormDatabase.insert(DBUserChatTable){
+            set(it.userId, getUser(user).id)
+            set(it.chatId, chatId)
         }
         return res == 1
     }
