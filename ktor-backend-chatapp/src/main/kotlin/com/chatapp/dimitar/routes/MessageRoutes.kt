@@ -27,16 +27,16 @@ fun Route.chatSocket(roomController: ChatRoomController) {
 
         try {
             roomController.onJoin(
-                user = "mitko",
+                user = session.username,
                 socket = this,
-                sessionId = "session.sessionId"
+                sessionId = session.sessionId
             )
             incoming.consumeEach { frame ->
                 if(frame is Frame.Text) {
                     roomController.sendMessage(
-                        senderUsername = "mitko",//session.username,
+                        senderUsername = session.username,//session.username,
                         content=  frame.readText(),
-                        chatId = 10
+                        chatId = call.parameters["chatId"]!!.toInt()
                     )
                 }
             }
