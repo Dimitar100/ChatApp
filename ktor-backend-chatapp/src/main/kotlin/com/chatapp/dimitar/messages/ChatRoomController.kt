@@ -20,7 +20,7 @@ class ChatRoomController(
 
     suspend fun onJoin(
         user: String,
-        sessionId: Int,
+        sessionId: String,
         socket: WebSocketSession
     ) {
 
@@ -41,12 +41,12 @@ class ChatRoomController(
         }
     }
 
-    suspend fun sendMessage(senderId: Int, content: String, chatId: Int) {
+    suspend fun sendMessage(senderUsername: String, content: String, chatId: Int) {
         chatRooms[chatId]!!.values.forEach{ chatRoomMember ->
             val message = Message(
                 id = 0,
                 content = content,
-                senderId = senderId,
+                senderId = userDataSource.getUserByUsername(senderUsername)!!.id,
                 chatId = chatId,
                 timestamp = System.currentTimeMillis()
             )

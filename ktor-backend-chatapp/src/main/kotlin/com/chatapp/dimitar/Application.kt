@@ -1,6 +1,8 @@
 package com.chatapp.dimitar
 
 import com.chatapp.dimitar.chats.ChatDataSourceSQl
+import com.chatapp.dimitar.messages.ChatRoomController
+import com.chatapp.dimitar.messages.MessageDataSourceSQL
 import com.chatapp.dimitar.plugins.*
 import com.chatapp.dimitar.security.hashing.SHA256HashingService
 import com.chatapp.dimitar.security.token.JwtTokenService
@@ -22,9 +24,10 @@ fun Application.module() {
     val hashingService = SHA256HashingService()
     val userDataSource = UserDataSourceSQL(DataBaseManager())
     val chatDataSource = ChatDataSourceSQl(DataBaseManager())
+    val messageDataSource = MessageDataSourceSQL(DataBaseManager())
     configureSockets()
     configureSerialization()
     configureMonitoring()
     configureSecurity(tokenConfig)
-    configureRouting(userDataSource, chatDataSource, hashingService, tokenService, tokenConfig)
+    configureRouting(userDataSource, chatDataSource, hashingService, tokenService, tokenConfig, ChatRoomController(messageDataSource, chatDataSource, userDataSource))
 }

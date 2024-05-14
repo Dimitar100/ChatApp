@@ -3,9 +3,8 @@ package com.chatapp.dimitar.plugins
 import com.chatapp.dimitar.DataBaseManager
 import com.chatapp.dimitar.*
 import com.chatapp.dimitar.chats.ChatDataSource
-import com.chatapp.dimitar.routes.createChat
-import com.chatapp.dimitar.routes.deleteChat
-import com.chatapp.dimitar.routes.getAllChats
+import com.chatapp.dimitar.messages.ChatRoomController
+import com.chatapp.dimitar.routes.*
 import com.chatapp.dimitar.security.hashing.HashingService
 import com.chatapp.dimitar.security.token.TokenConfig
 import com.chatapp.dimitar.security.token.TokenService
@@ -18,7 +17,8 @@ fun Application.configureRouting(
     chatDataSource: ChatDataSource,
     hashingService: HashingService,
     tokenService: TokenService,
-    tokenConfig: TokenConfig
+    tokenConfig: TokenConfig,
+    chatRoomController: ChatRoomController
 ) {
     routing {
         get("/") {
@@ -33,5 +33,7 @@ fun Application.configureRouting(
         this@routing.createChat(chatDataSource, userDataSource)
         this@routing.deleteChat()
         this@routing.getAllChats(chatDataSource)
+        this@routing.chatSocket(chatRoomController)
+        this@routing.getAllMessages(chatRoomController)
     }
 }

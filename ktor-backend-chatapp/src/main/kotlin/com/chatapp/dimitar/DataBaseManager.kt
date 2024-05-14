@@ -15,6 +15,7 @@ import org.ktorm.entity.sequenceOf
 import org.ktorm.entity.toList
 import org.ktorm.expression.SqlExpression
 import java.sql.DriverManager
+import java.sql.Timestamp
 
 class DataBaseManager {
 
@@ -120,7 +121,7 @@ class DataBaseManager {
             set(it.content, message.content)
             set(it.chatId, message.chatId)
             set(it.senderId, message.senderId)
-            set(it.timestamp, message.timestamp)
+            set(it.timestamp, Timestamp(message.timestamp))
         }
         return res == 1
     }
