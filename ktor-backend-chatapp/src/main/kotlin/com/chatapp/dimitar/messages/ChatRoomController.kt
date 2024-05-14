@@ -42,6 +42,7 @@ class ChatRoomController(
     }
 
     suspend fun sendMessage(senderUsername: String, content: String, chatId: Int) {
+        //TODO check if the sender is participant in the chat
         chatRooms[chatId]!!.values.forEach{ chatRoomMember ->
             val message = Message(
                 id = 0,
@@ -69,5 +70,6 @@ class ChatRoomController(
                 it.value.remove(username)
             }
         }
+        OnlineUsers.removeUser(username)
     }
 }

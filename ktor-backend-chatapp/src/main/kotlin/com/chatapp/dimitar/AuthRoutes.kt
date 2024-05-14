@@ -1,6 +1,7 @@
 package com.chatapp.dimitar
 
 
+import com.chatapp.dimitar.messages.OnlineUsers
 import com.chatapp.dimitar.requests.AuthRequest
 import com.chatapp.dimitar.responses.AuthResponse
 import com.chatapp.dimitar.security.hashing.HashingService
@@ -91,6 +92,7 @@ fun Route.signIn(
                 value = user.id.toString()
             )
         )
+        OnlineUsers.insertUser(user.username)
 
         call.respond(
             status = HttpStatusCode.OK,
