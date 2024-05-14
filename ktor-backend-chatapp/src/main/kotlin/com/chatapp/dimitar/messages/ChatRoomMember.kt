@@ -5,5 +5,6 @@ import io.ktor.websocket.*
 
 data class ChatRoomMember(
     val username: String,
+    val sessionId: Int,
     val socket: WebSocketSession
 )

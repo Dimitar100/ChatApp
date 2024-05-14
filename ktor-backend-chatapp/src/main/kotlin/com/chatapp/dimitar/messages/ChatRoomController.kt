@@ -1,5 +1,7 @@
 package com.chatapp.dimitar.messages
 
+import com.chatapp.dimitar.UserDataSource
+import com.chatapp.dimitar.chats.ChatDataSource
 import io.ktor.websocket.*
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -7,22 +9,40 @@ import java.sql.Timestamp
 import java.util.concurrent.ConcurrentHashMap
 
 class ChatRoomController(
-    private val messageDataSource: MessageDataSource
+    private val messageDataSource: MessageDataSource,
+    private val chatDataSource: ChatDataSource,
+    private val userDataSource: UserDataSource
 ) {
-    private val members = ConcurrentHashMap<String, ChatRoomMember>()
 
-    fun onJoin(
+    private val chatRooms = ConcurrentHashMap<Int, ConcurrentHashMap<String, ChatRoomMember>>()
+
+
+
+    suspend fun onJoin(
         user: String,
+        sessionId: Int,
         socket: WebSocketSession
     ) {
-        members[user] = ChatRoomMember(
+
+        val member = ChatRoomMember(
             username = user,
+            sessionId = sessionId,
             socket = socket
         )
+        val usersChats = chatDataSource.getUserChats(userDataSource.getUserByUsername(user)!!.id)
+        usersChats.forEach {
+            if(chatRooms.containsKey(it.id)){
+                chatRooms[it.id]!![user] = member
+            }else{
+                val members = ConcurrentHashMap<String, ChatRoomMember>()
+                members[user] = member
+                chatRooms[it.id] = members
+            }
+        }
     }
 
     suspend fun sendMessage(senderId: Int, content: String, chatId: Int) {
-        members.values.forEach { member ->
+        chatRooms[chatId]!!.values.forEach{ chatRoomMember ->
             val message = Message(
                 id = 0,
                 content = content,
@@ -33,7 +53,8 @@ class ChatRoomController(
             messageDataSource.sendMessage(message)
 
             val parsedMessage = Json.encodeToString(message)
-            member.socket.send(Frame.Text(parsedMessage))
+            chatRoomMember.socket.send(Frame.Text(parsedMessage))
+
         }
     }
 
@@ -42,9 +63,11 @@ class ChatRoomController(
     }
 
     suspend fun tryDisconnect(username: String) {
-        members[username]?.socket?.close()
-        if(members.containsKey(username)) {
-            members.remove(username)
+        chatRooms.forEach{
+            it.value[username]?.socket?.close()
+            if(it.value.containsKey(username)) {
+                it.value.remove(username)
+            }
         }
     }
 }
