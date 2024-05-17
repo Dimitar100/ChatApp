@@ -3,19 +3,25 @@ package com.dimitar.chatapp
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.dimitar.chatapp.chat.ChatSocketServiceImpl
 import com.dimitar.chatapp.databinding.ActivityMainBinding
+import com.dimitar.chatapp.di.AppModule
 import com.dimitar.chatapp.ui.chat.ChatFragment
+import com.dimitar.chatapp.ui.home.ChatAdapter
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    lateinit var navController: NavController
-
+    private lateinit var navController: NavController
+    lateinit var username: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,11 +43,11 @@ class MainActivity : AppCompatActivity() {
       //  setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-       //navController.navigate(R.id.navigation_chat)
-       /* supportFragmentManager.beginTransaction().apply{
-            replace(R.id.nav_host_fragment_activity_main, ChatFragment())
-            commit()
-        }*/
+        username = intent.extras!!.getString("username")!!
+
+        lifecycleScope.launch {
+            ChatSocketServiceImpl(AppModule.provideHttpClient()).initSession(username)
+        }
     }
 
 

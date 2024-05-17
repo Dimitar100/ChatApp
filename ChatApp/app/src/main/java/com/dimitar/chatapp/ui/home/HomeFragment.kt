@@ -98,7 +98,7 @@ class HomeFragment : Fragment()  {
                 //Log.d("HOME_FRAGMENT", it.chats.toString())
                 recyclerView.adapter = ChatAdapter(it.chats, homeFragment)
                 recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-                ChatSocketServiceImpl(AppModule.provideHttpClient()).initSession(username)
+                //ChatSocketServiceImpl(AppModule.provideHttpClient()).initSession(username)
             }
         }
 
