@@ -28,10 +28,15 @@ class HomeFragment : Fragment()  {
 
     private var _binding: FragmentHomeBinding? = null
 
+
+
+
     companion object RecyclerViewClick {
+        lateinit var chatWindow : Dialog
         fun onClick(){
-            //Log.d("CHAT_CLICK", "PLS")
-            
+            Log.d("CHAT_CLICK", "PLS")
+            chatWindow.show()
+
         }
     }
 
@@ -68,6 +73,11 @@ class HomeFragment : Fragment()  {
         createChatDialog.setContentView(R.layout.create_chat_dialog)
         createChatDialog.window!!.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         createChatDialog.setCancelable(true)
+
+        chatWindow = Dialog(requireActivity())
+        chatWindow.setContentView(R.layout.chat)
+        chatWindow.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        chatWindow.setCancelable(true)
 
         val addChatBtn: Button = requireView().findViewById(R.id.createChatBtn)
         addChatBtn.setOnClickListener{
