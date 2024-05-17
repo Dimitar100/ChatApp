@@ -66,7 +66,7 @@ fun Route.getAllChats(chatDataSource: ChatDataSource) {
                 val hashMap = hashMapOf(
                     "id" to JsonPrimitive(it.id),
                     "name" to JsonPrimitive(it.chatName),
-                    "creatorId" to JsonPrimitive(it.creatorId.id)
+                    "creatorId" to JsonPrimitive(it.creatorId.username)
                 )
                 val jsonObject = JsonObject(hashMap)
                 responseDataJson = responseDataJson.plus(jsonObject)

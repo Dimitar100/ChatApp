@@ -69,18 +69,23 @@ class DataBaseManager {
         val chatID = ktormDatabase.insertAndGenerateKey(DBChatsTable){
             //set(it.id, user.id)
             set(it.chatName, chat.name)
-            set(it.creatorId, userId)
+            set(it.creatorId, creatorId)
         }
 
         val res = ktormDatabase.insert(DBUserChatTable){
             set(it.userId, creatorId)
             set(it.chatId, chatID)
         }
-
-        val res2 = ktormDatabase.insert(DBUserChatTable){
-            set(it.userId, userId)
-            set(it.chatId, chatID)
+        var res2 = -1
+        if(creatorId != userId){
+            res2 = ktormDatabase.insert(DBUserChatTable){
+                set(it.userId, userId)
+                set(it.chatId, chatID)
+            }
+        }else{
+            res2 =1
         }
+
         return res == 1 && res2 ==1
     }
 
