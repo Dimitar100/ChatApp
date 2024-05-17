@@ -1,8 +1,10 @@
 package com.chatapp.dimitar.routes
 
 import com.chatapp.dimitar.messages.ChatRoomController
+import com.chatapp.dimitar.messages.IncomingMessage
 import com.chatapp.dimitar.messages.OnlineUsers
 import com.chatapp.dimitar.sessions.ChatSession
+import com.google.gson.Gson
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
@@ -29,10 +31,12 @@ fun Route.chatSocket(roomController: ChatRoomController) {
                 )
                 incoming.consumeEach { frame ->
                     if (frame is Frame.Text) {
+                        val frameText = frame.readText()
+                        val incomingMessage: IncomingMessage = Gson().fromJson(frameText, IncomingMessage::class.java)
                         roomController.sendMessage(
                             senderUsername = session.username,//session.username,
-                            content = frame.readText(),
-                            chatId = call.parameters["chatId"]!!.toInt()
+                            content = incomingMessage.message,
+                            chatId = incomingMessage.chatId
                         )
                     }
                 }

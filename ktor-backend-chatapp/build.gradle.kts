@@ -48,4 +48,6 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-annotations:2.13.4")
     implementation("com.fasterxml.jackson.core:jackson-core:2.13.4")
 
+    implementation("com.google.code.gson:gson:2.9.0")
+
 }
