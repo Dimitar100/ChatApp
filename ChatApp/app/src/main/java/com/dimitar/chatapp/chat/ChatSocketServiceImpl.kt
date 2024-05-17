@@ -1,5 +1,6 @@
 package com.dimitar.chatapp.chat
 
+import android.util.Log
 import com.dimitar.chatapp.data.Message
 import com.dimitar.chatapp.data.dto.MessageDto
 import com.dimitar.chatapp.util.Resource
@@ -41,7 +42,9 @@ class ChatSocketServiceImpl(
     override suspend fun sendMessage(message: String, chatId: Int) {
         try {
             //Temp msg as string {"chatId":20,"message":"Hello world"}
+
             val frame = "{\"chatId\":$chatId,\"message\":\"$message\"}"
+            Log.d("CHAT_FRAGMENT", frame)
             socket?.send(Frame.Text(frame))
         } catch (e: Exception) {
             e.printStackTrace()

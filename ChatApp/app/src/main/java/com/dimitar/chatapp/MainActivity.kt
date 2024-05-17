@@ -15,6 +15,7 @@ import com.dimitar.chatapp.databinding.ActivityMainBinding
 import com.dimitar.chatapp.di.AppModule
 import com.dimitar.chatapp.ui.chat.ChatFragment
 import com.dimitar.chatapp.ui.home.ChatAdapter
+import com.dimitar.chatapp.util.CurrentChat
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -46,7 +47,8 @@ class MainActivity : AppCompatActivity() {
         username = intent.extras!!.getString("username")!!
 
         lifecycleScope.launch {
-            ChatSocketServiceImpl(AppModule.provideHttpClient()).initSession(username)
+            CurrentChat.chatSocketService = ChatSocketServiceImpl(AppModule.provideHttpClient())
+            (CurrentChat.chatSocketService as ChatSocketServiceImpl).initSession(username)
         }
     }
 

@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import com.dimitar.chatapp.R
 import com.dimitar.chatapp.chat.ChatSocketServiceImpl
 import com.dimitar.chatapp.di.AppModule
 import com.dimitar.chatapp.util.CurrentChat
+import kotlinx.coroutines.launch
 import org.w3c.dom.Text
 
 class ChatFragment : Fragment() {
@@ -42,7 +44,12 @@ class ChatFragment : Fragment() {
 
         sendBtn.setOnClickListener{
             test.text = CurrentChat.Id.toString()
-            viewModel.sendMsg(CurrentChat.Id, "HELLO THERE!")
+            //viewModel.sendMsg(CurrentChat.Id, "HELLO THERE!")
+
+            lifecycleScope.launch {
+
+                CurrentChat.chatSocketService?.sendMessage("HELLO THERE!", CurrentChat.Id)
+            }
         }
 
     }
