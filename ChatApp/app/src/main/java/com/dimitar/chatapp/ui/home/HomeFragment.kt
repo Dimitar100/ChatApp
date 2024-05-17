@@ -14,6 +14,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dimitar.chatapp.MainActivity
@@ -32,11 +35,9 @@ class HomeFragment : Fragment()  {
 
 
     companion object RecyclerViewClick {
-        lateinit var chatWindow : Dialog
+        lateinit var navController : NavController
         fun onClick(){
             Log.d("CHAT_CLICK", "PLS")
-            chatWindow.show()
-
         }
     }
 
@@ -74,10 +75,10 @@ class HomeFragment : Fragment()  {
         createChatDialog.window!!.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         createChatDialog.setCancelable(true)
 
-        chatWindow = Dialog(requireActivity())
+        /*chatWindow = Dialog(requireActivity())
         chatWindow.setContentView(R.layout.chat)
         chatWindow.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-        chatWindow.setCancelable(true)
+        chatWindow.setCancelable(true)*/
 
         val addChatBtn: Button = requireView().findViewById(R.id.createChatBtn)
         addChatBtn.setOnClickListener{
@@ -96,14 +97,19 @@ class HomeFragment : Fragment()  {
 
         val recyclerView: RecyclerView = requireView().findViewById(R.id.recyclerViewChats)
         homeViewModel.getAllChats()
+        val homeFragment = this
         lifecycleScope.launch {
             homeViewModel.uiState.collect {
                 //Log.d("HOME_FRAGMENT", it.chats.toString())
-                recyclerView.adapter = ChatAdapter(it.chats)
+                recyclerView.adapter = ChatAdapter(it.chats, homeFragment)
                 recyclerView.layoutManager = LinearLayoutManager(requireActivity())
             }
         }
 
+    }
+
+    fun navigateToChat(){
+        findNavController().navigate(R.id.navigation_chat)
     }
 
     override fun onDestroyView() {

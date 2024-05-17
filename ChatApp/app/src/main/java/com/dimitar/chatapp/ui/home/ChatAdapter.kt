@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.dimitar.chatapp.R
 
 class ChatAdapter(
-    private val data: List<Chat>
+    private val data: List<Chat>,
+    private val homeFragment: HomeFragment
 ) : RecyclerView.Adapter<ChatAdapter.ItemViewHolder>() {
 
     //Setup variables to hold the instance of the views defined in your recyclerView item layout
@@ -38,7 +40,8 @@ class ChatAdapter(
         holder.chatId.text = chat.chatId.toString()
 
         holder.itemView.setOnClickListener {
-            HomeFragment.onClick()
+            //HomeFragment.onClick()
+            homeFragment.findNavController().navigate(R.id.navigation_chat)
         }
     }
 
