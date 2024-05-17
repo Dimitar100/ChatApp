@@ -4,7 +4,7 @@ use ChatAppDB;
 
 CREATE TABLE Users(
 	ID INT NOT NULL AUTO_INCREMENT,
-	Username VARCHAR(255) NOT NULL,
+	Username VARCHAR(255) NOT NULL UNIQUE,
     Pass VARCHAR(255) NOT NULL,
     Salt VARCHAR(255),
     User_role ENUM('Admin', 'User') NOT NULL,
@@ -14,7 +14,9 @@ CREATE TABLE Users(
 CREATE TABLE Chats(
 	ID INT NOT NULL AUTO_INCREMENT,
 	ChatName VARCHAR(255) NOT NULL,
-    primary key(ID)
+    CreatorID INT NOT NULL,
+    primary key(ID),
+    FOREIGN KEY (CreatorID) REFERENCES Users(ID)
     );
     
 CREATE TABLE Messages(
@@ -37,9 +39,18 @@ CREATE TABLE Users_Chats(
     FOREIGN KEY (ChatID) REFERENCES Chats(ID)
     );
     
+select * from Chats;
 
-insert into Users (ID, Username, Pass, User_role) values (1, 'test1', 'pass', 'User');
-insert into Users (ID, Username, Pass, User_role) values (2, 'test2', 'pass', 'User');
+select * from Users_Chats;
+
+select * from Users;
+
+select * from Messages;
 
 
+delete from Users_Chats where ID > 0;
+
+delete from Chats where ID > 0;
+
+delete from Messages where ID > 0;
 
