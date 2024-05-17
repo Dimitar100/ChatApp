@@ -54,7 +54,7 @@ fun Route.getAllMessages(roomController: ChatRoomController) {
         get("/chat/messages") {
             call.respond(
                 HttpStatusCode.OK,
-                roomController.getAllMessages(0)
+                roomController.getAllMessages(call.parameters["chatId"]!!.toInt())
             )
 
         }
