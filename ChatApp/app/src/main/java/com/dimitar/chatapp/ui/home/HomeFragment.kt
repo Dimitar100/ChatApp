@@ -32,15 +32,6 @@ class HomeFragment : Fragment()  {
     private var _binding: FragmentHomeBinding? = null
 
 
-
-
-    companion object RecyclerViewClick {
-        lateinit var navController : NavController
-        fun onClick(){
-            Log.d("CHAT_CLICK", "PLS")
-        }
-    }
-
     // This property is only valid between onCreateView and
     // onDestroyView.
     private var jwt: String = ""
