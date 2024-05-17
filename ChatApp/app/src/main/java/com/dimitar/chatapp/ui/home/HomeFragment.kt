@@ -21,7 +21,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dimitar.chatapp.MainActivity
 import com.dimitar.chatapp.R
+import com.dimitar.chatapp.chat.ChatSocketServiceImpl
 import com.dimitar.chatapp.databinding.*
+import com.dimitar.chatapp.di.AppModule
 import com.dimitar.chatapp.signin.SignInViewModel
 import kotlinx.coroutines.launch
 
@@ -35,6 +37,7 @@ class HomeFragment : Fragment()  {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private var jwt: String = ""
+    private var username: String = ""
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -59,6 +62,7 @@ class HomeFragment : Fragment()  {
         super.onViewCreated(view, savedInstanceState)
         //jwt = requireActivity().intent.extras!!.getString("JWT")!!
         jwt = requireActivity().intent.extras!!.getString("JWT")!!
+        username = requireActivity().intent.extras!!.getString("username")!!
         val homeViewModel: HomeViewModel by viewModels { HomeViewModelFactory(jwt) }
 
         val createChatDialog = Dialog(requireActivity())
@@ -94,8 +98,12 @@ class HomeFragment : Fragment()  {
                 //Log.d("HOME_FRAGMENT", it.chats.toString())
                 recyclerView.adapter = ChatAdapter(it.chats, homeFragment)
                 recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+                ChatSocketServiceImpl(AppModule.provideHttpClient()).initSession(username)
             }
         }
+
+
+
 
     }
 

@@ -23,7 +23,7 @@ class SignInFragment : Fragment() {
     }
 
     private lateinit var viewModel: SignInViewModel
-
+    private lateinit var username: String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,6 +49,7 @@ class SignInFragment : Fragment() {
                         MainActivity::class.java
                     )
                     intent.putExtra("JWT", it.jwtToken)
+                    intent.putExtra("username", username)
                     startActivity(intent)
                 }
 
@@ -68,7 +69,9 @@ class SignInFragment : Fragment() {
         val password = requireView().findViewById(R.id.editTextPassword) as EditText
 
         button.setOnClickListener{
+            this.username = username.text.toString()
             viewModel.sendSignInReq(username.text.toString(), password.text.toString())
+
         }
        // viewModel = ViewModelProvider(requireActivity()).get(SignInViewModel::class.java)
     }
