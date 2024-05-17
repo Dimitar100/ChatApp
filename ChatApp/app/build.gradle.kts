@@ -45,7 +45,16 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.6.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.6.2")
+    implementation("com.android.tools.compose:compose-preview-renderer:0.0.1-alpha01")
 
+    // Ktor
+    val ktor_version = "1.6.3"
+    implementation("io.ktor:ktor-client-core:$ktor_version")
+    implementation("io.ktor:ktor-client-cio:$ktor_version")
+    implementation("io.ktor:ktor-client-serialization:$ktor_version")
+    implementation("io.ktor:ktor-client-websockets:$ktor_version")
+    implementation("io.ktor:ktor-client-logging:$ktor_version")
+    implementation("ch.qos.logback:logback-classic:1.2.6")
     val activity_version = "1.9.0"
     val fragment_version = "1.6.2"
 
