@@ -12,7 +12,4 @@ class MessageRepository(
 
     fun getAllMessages(chatId: Int){}
 
-    fun sendMessage(sender: String, chatId: Int){
-
-    }
 }
