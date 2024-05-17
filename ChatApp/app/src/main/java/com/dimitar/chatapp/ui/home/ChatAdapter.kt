@@ -1,9 +1,11 @@
 package com.dimitar.chatapp.ui.home
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.dimitar.chatapp.R
 
@@ -34,6 +36,10 @@ class ChatAdapter(
         holder.name.text = chat.chatName
         holder.creator.text = "Creator: ${chat.chatCreator}"
         holder.chatId.text = chat.chatId.toString()
+
+        holder.itemView.setOnClickListener {
+            HomeFragment.onClick()
+        }
     }
 
     //The recyclerView just wants to know how many items are currently in your dataset

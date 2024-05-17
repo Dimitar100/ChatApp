@@ -47,6 +47,10 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.6.2")
    // implementation("com.android.tools.compose:compose-preview-renderer:0.0.1-alpha01")
 
+    implementation("com.google.dagger:hilt-android:2.38.1")
+    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
+
     // Ktor
     val ktor_version = "1.6.3"
     implementation("io.ktor:ktor-client-core:$ktor_version")

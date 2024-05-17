@@ -22,11 +22,18 @@ import com.dimitar.chatapp.databinding.*
 import com.dimitar.chatapp.signin.SignInViewModel
 import kotlinx.coroutines.launch
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment()  {
 
     //private lateinit var viewModel: HomeViewModel
 
     private var _binding: FragmentHomeBinding? = null
+
+    companion object RecyclerViewClick {
+        fun onClick(){
+            //Log.d("CHAT_CLICK", "PLS")
+            
+        }
+    }
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -93,4 +100,5 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }
