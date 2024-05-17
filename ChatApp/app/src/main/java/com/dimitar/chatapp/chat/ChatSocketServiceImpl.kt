@@ -38,9 +38,11 @@ class ChatSocketServiceImpl(
         }
     }
 
-    override suspend fun sendMessage(message: String) {
+    override suspend fun sendMessage(message: String, chatId: Int) {
         try {
-            socket?.send(Frame.Text(message))
+            //Temp msg as string {"chatId":20,"message":"Hello world"}
+            val frame = "{\"chatId\":$chatId,\"message\":\"$message\"}"
+            socket?.send(Frame.Text(frame))
         } catch (e: Exception) {
             e.printStackTrace()
         }

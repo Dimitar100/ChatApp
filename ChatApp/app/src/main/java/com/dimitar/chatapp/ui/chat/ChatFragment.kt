@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.dimitar.chatapp.R
+import com.dimitar.chatapp.chat.ChatSocketServiceImpl
+import com.dimitar.chatapp.di.AppModule
+import com.dimitar.chatapp.util.CurrentChat
 import org.w3c.dom.Text
 
 class ChatFragment : Fragment() {
@@ -34,8 +37,13 @@ class ChatFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val test: TextView = requireView().findViewById(R.id.test)
-        test.text = "PLS!!!"
+        val sendBtn: Button = requireView().findViewById(R.id.sendBtn)
+        val test : TextView = requireView().findViewById(R.id.test)
+
+        sendBtn.setOnClickListener{
+            test.text = CurrentChat.Id.toString()
+            viewModel.sendMsg(CurrentChat.Id, "HELLO THERE!")
+        }
 
     }
 

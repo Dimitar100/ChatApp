@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.dimitar.chatapp.R
+import com.dimitar.chatapp.util.CurrentChat
 
 class ChatAdapter(
     private val data: List<Chat>,
@@ -41,6 +42,7 @@ class ChatAdapter(
 
         holder.itemView.setOnClickListener {
             //HomeFragment.onClick()
+            CurrentChat.Id = holder.chatId.text.toString().toInt()
             homeFragment.findNavController().navigate(R.id.navigation_chat)
         }
     }

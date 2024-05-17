@@ -10,7 +10,7 @@ interface ChatSocketService {
         username: String
     ): Resource<Unit>
 
-    suspend fun sendMessage(message: String)
+    suspend fun sendMessage(message: String, chatId: Int)
 
     fun observeMessages(): Flow<Message>
 

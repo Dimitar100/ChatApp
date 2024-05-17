@@ -70,11 +70,6 @@ class HomeFragment : Fragment()  {
         createChatDialog.window!!.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         createChatDialog.setCancelable(true)
 
-        /*chatWindow = Dialog(requireActivity())
-        chatWindow.setContentView(R.layout.chat)
-        chatWindow.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-        chatWindow.setCancelable(true)*/
-
         val addChatBtn: Button = requireView().findViewById(R.id.createChatBtn)
         addChatBtn.setOnClickListener{
             createChatDialog.show()
