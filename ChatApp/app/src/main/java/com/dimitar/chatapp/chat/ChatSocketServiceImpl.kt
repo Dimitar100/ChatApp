@@ -52,15 +52,18 @@ class ChatSocketServiceImpl(
     }
 
     override fun observeMessages(): Flow<Message> {
+        var messageDto : MessageDto
         return try {
             socket?.incoming
                 ?.receiveAsFlow()
                 ?.filter { it is Frame.Text }
                 ?.map {
                     val json = (it as? Frame.Text)?.readText() ?: ""
-                    val messageDto = Json.decodeFromString<MessageDto>(json)
+                    messageDto = Json.decodeFromString<MessageDto>(json)
                     messageDto.toMessage()
+
                 } ?: flow {  }
+
         } catch(e: Exception) {
             e.printStackTrace()
             flow {  }

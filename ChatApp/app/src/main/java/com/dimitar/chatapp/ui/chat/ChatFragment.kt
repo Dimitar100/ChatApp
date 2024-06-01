@@ -2,6 +2,7 @@ package com.dimitar.chatapp.ui.chat
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.dimitar.chatapp.R
 import com.dimitar.chatapp.chat.ChatSocketServiceImpl
 import com.dimitar.chatapp.di.AppModule
 import com.dimitar.chatapp.util.CurrentChat
+import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
 import org.w3c.dom.Text
 
@@ -49,6 +51,14 @@ class ChatFragment : Fragment() {
             lifecycleScope.launch {
 
                 CurrentChat.chatSocketService?.sendMessage("HELLO THERE!", CurrentChat.Id)
+            }
+        }
+
+        lifecycleScope.launch {
+
+            var messages = CurrentChat.chatSocketService?.observeMessages()
+            messages!!.collect {
+                Log.d("INCOMING_FRAGMENT", it.content)
             }
         }
 
