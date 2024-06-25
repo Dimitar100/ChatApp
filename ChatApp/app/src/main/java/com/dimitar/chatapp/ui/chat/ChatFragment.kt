@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import com.dimitar.chatapp.R
@@ -43,14 +44,16 @@ class ChatFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val sendBtn: Button = requireView().findViewById(R.id.sendBtn)
         val test : TextView = requireView().findViewById(R.id.test)
+        val editTextField: EditText = requireView().findViewById(R.id.editTextMessage)
+
+
 
         sendBtn.setOnClickListener{
             test.text = CurrentChat.Id.toString()
             //viewModel.sendMsg(CurrentChat.Id, "HELLO THERE!")
 
             lifecycleScope.launch {
-
-                CurrentChat.chatSocketService?.sendMessage("HELLO THERE!", CurrentChat.Id)
+                CurrentChat.chatSocketService?.sendMessage(editTextField.text.toString(), CurrentChat.Id)
             }
         }
 

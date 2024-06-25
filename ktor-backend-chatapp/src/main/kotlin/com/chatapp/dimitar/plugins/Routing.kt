@@ -28,8 +28,6 @@ fun Application.configureRouting(
         }
         this@routing.signIn(userDataSource, hashingService, tokenService, tokenConfig)
         this@routing.signUp(hashingService, userDataSource)
-        this@routing.authenticate()
-        this@routing.getSecretInfo()
         this@routing.createChat(chatDataSource, userDataSource)
         this@routing.deleteChat()
         this@routing.getAllChats(chatDataSource)

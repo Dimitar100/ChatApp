@@ -1,6 +1,8 @@
-package com.chatapp.dimitar
+package com.chatapp.dimitar.routes
 
 
+import com.chatapp.dimitar.User
+import com.chatapp.dimitar.UserDataSource
 import com.chatapp.dimitar.messages.OnlineUsers
 import com.chatapp.dimitar.requests.AuthRequest
 import com.chatapp.dimitar.responses.AuthResponse
@@ -100,23 +102,5 @@ fun Route.signIn(
                 token = token
             )
         )
-    }
-}
-
-fun Route.authenticate() {
-    authenticate {
-        get("authenticate") {
-            call.respond(HttpStatusCode.OK)
-        }
-    }
-}
-
-fun Route.getSecretInfo() {
-    authenticate {
-        get("secret") {
-            val principal = call.principal<JWTPrincipal>()
-            val userId = principal?.getClaim("userId", String::class)
-            call.respond(HttpStatusCode.OK, "secret: Your userId is $userId")
-        }
     }
 }
