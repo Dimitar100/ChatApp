@@ -21,7 +21,7 @@ data class MessageDto(
         return Message(
             content = content,
             formattedTime = formattedDate,
-            senderId = senderId,
+            senderId = senderId.toString(),
             chatId = chatId
         )
     }

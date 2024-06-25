@@ -3,14 +3,11 @@ package com.chatapp.dimitar.routes
 import com.chatapp.dimitar.messages.ChatRoomController
 import com.chatapp.dimitar.messages.IncomingMessage
 import com.chatapp.dimitar.messages.OnlineUsers
-import com.chatapp.dimitar.requests.AuthRequest
-import com.chatapp.dimitar.requests.GetMessagesRequest
 import com.chatapp.dimitar.sessions.ChatSession
 import com.google.gson.Gson
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
-import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.sessions.*
@@ -61,12 +58,9 @@ fun Route.chatSocket(roomController: ChatRoomController) {
 
 fun Route.getAllMessages(roomController: ChatRoomController) {
     authenticate {
-        get("/chat/messages") {
-            val request = call.receiveNullable<GetMessagesRequest>() ?: kotlin.run {
-                call.respond(HttpStatusCode.BadRequest)
-                return@get
-            }
-            val chatMessages =  roomController.getAllMessages(request.chatId)
+        get("/chat/messages/") {
+
+            val chatMessages =  roomController.getAllMessages(call.request.queryParameters["chatId"]!!.toInt())
 
             //    var responseData : List<Chat> = ArrayList()
             var responseDataJson : List<JsonObject> = ArrayList()

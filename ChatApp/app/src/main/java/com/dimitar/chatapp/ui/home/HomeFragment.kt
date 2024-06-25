@@ -25,6 +25,7 @@ import com.dimitar.chatapp.chat.ChatSocketServiceImpl
 import com.dimitar.chatapp.databinding.*
 import com.dimitar.chatapp.di.AppModule
 import com.dimitar.chatapp.signin.SignInViewModel
+import com.dimitar.chatapp.util.User
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment()  {
@@ -63,6 +64,10 @@ class HomeFragment : Fragment()  {
         //jwt = requireActivity().intent.extras!!.getString("JWT")!!
         jwt = requireActivity().intent.extras!!.getString("JWT")!!
         username = requireActivity().intent.extras!!.getString("username")!!
+
+        User.jwt = jwt
+        User.username = username
+
         val homeViewModel: HomeViewModel by viewModels { HomeViewModelFactory(jwt) }
 
         val createChatDialog = Dialog(requireActivity())
