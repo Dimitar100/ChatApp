@@ -57,7 +57,7 @@ class MessagesRepository(
                         allMessages = allMessages.plus(message)
                     }
                     Log.d("MSG_REPO", allMessages.toString())
-                    //viewModel.updateState(allChats)
+                    viewModel.updateState(allMessages)
 
                 }else{
                     Log.d("TEST", "request FAILED!!!")

@@ -10,12 +10,19 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.dimitar.chatapp.R
 import com.dimitar.chatapp.chat.ChatSocketServiceImpl
 import com.dimitar.chatapp.di.AppModule
+import com.dimitar.chatapp.ui.home.ChatAdapter
+import com.dimitar.chatapp.ui.home.HomeViewModel
+import com.dimitar.chatapp.ui.home.HomeViewModelFactory
 import com.dimitar.chatapp.util.CurrentChat
 import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import org.w3c.dom.Text
 
@@ -25,7 +32,7 @@ class ChatFragment : Fragment() {
         fun newInstance() = ChatFragment()
     }
 
-    private lateinit var viewModel: ChatViewModel
+   // private lateinit var viewModel: ChatViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,8 +43,8 @@ class ChatFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
-        viewModel.getMessages()
+       // viewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
+      //  viewModel.getMessages()
         // TODO: Use the ViewModel
     }
 
@@ -47,7 +54,7 @@ class ChatFragment : Fragment() {
         val test : TextView = requireView().findViewById(R.id.test)
         val editTextField: EditText = requireView().findViewById(R.id.editTextMessage)
 
-
+        val chatViewModel: ChatViewModel by viewModels { ChatViewModelFactory() }
 
         sendBtn.setOnClickListener{
             test.text = CurrentChat.Id.toString()
@@ -58,14 +65,22 @@ class ChatFragment : Fragment() {
             }
         }
 
+        val recyclerView: RecyclerView = requireView().findViewById(R.id.recyclerViewMessages)
+        chatViewModel.getMessages()
+        val chatFragment = this
         lifecycleScope.launch {
+            chatViewModel.uiState.collect {
+                recyclerView.adapter = MessageAdapter(it.messages, chatFragment)
+                recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+            }
 
+        }
+        lifecycleScope.launch {
             var messages = CurrentChat.chatSocketService?.observeMessages()
             messages!!.collect {
                 Log.d("INCOMING_FRAGMENT", it.content)
+                chatViewModel.getMessages()
             }
         }
-
     }
-
 }
