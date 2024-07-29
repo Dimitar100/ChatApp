@@ -39,11 +39,6 @@ class MessageAdapter(
         holder.timestamp.text = message.formattedTime//"Creator: ${chat.chatCreator}"
         holder.senderId.text = message.senderId
 
-        /*holder.itemView.setOnClickListener {
-            //HomeFragment.onClick()
-            CurrentChat.Id = holder.chatId.text.toString().toInt()
-            homeFragment.findNavController().navigate(R.id.navigation_chat)
-        }*/
     }
 
     //The recyclerView just wants to know how many items are currently in your dataset

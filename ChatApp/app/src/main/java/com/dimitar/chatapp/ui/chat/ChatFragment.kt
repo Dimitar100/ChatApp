@@ -62,6 +62,7 @@ class ChatFragment : Fragment() {
 
             lifecycleScope.launch {
                 CurrentChat.chatSocketService?.sendMessage(editTextField.text.toString(), CurrentChat.Id)
+                editTextField.setText("")
             }
         }
 
@@ -72,8 +73,9 @@ class ChatFragment : Fragment() {
             chatViewModel.uiState.collect {
                 recyclerView.adapter = MessageAdapter(it.messages, chatFragment)
                 recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-            }
+                recyclerView.scrollToPosition(recyclerView.adapter!!.itemCount-1)
 
+            }
         }
         lifecycleScope.launch {
             var messages = CurrentChat.chatSocketService?.observeMessages()

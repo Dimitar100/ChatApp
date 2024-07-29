@@ -43,15 +43,16 @@ class ChatRoomController(
 
     suspend fun sendMessage(senderUsername: String, content: String, chatId: Int) {
         //TODO check if the sender is participant in the chat
+        val message = Message(
+            id = 0,
+            content = content,
+            senderId = userDataSource.getUserByUsername(senderUsername)!!.id,
+            chatId = chatId,
+            timestamp = System.currentTimeMillis()
+        )
+        messageDataSource.sendMessage(message)
+        
         chatRooms[chatId]!!.values.forEach{ chatRoomMember ->
-            val message = Message(
-                id = 0,
-                content = content,
-                senderId = userDataSource.getUserByUsername(senderUsername)!!.id,
-                chatId = chatId,
-                timestamp = System.currentTimeMillis()
-            )
-            messageDataSource.sendMessage(message)
 
             val parsedMessage = Json.encodeToString(message)
             chatRoomMember.socket.send(Frame.Text(parsedMessage))
