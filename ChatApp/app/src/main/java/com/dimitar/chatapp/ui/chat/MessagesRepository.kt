@@ -4,6 +4,7 @@ import android.util.Log
 import com.dimitar.chatapp.data.Message
 import com.dimitar.chatapp.ui.home.Chat
 import com.dimitar.chatapp.ui.home.HomeViewModel
+import com.dimitar.chatapp.util.CurrentChat
 import com.dimitar.chatapp.util.User
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
@@ -33,7 +34,7 @@ class MessagesRepository(
         var result = ""
         var jsonResult : JsonArray
 
-        val request = Request.Builder().url(authServerUrl +"chat/messages/?chatId=1").header("Authorization", token).build()
+        val request = Request.Builder().url(authServerUrl +"chat/messages/?chatId="+CurrentChat.Id).header("Authorization", token).build()
 
         authClient.newCall(request).enqueue(object: Callback {
             override fun onFailure(call: Call, e: IOException) {
