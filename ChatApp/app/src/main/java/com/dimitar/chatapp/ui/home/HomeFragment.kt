@@ -24,7 +24,7 @@ import com.dimitar.chatapp.R
 import com.dimitar.chatapp.chat.ChatSocketServiceImpl
 import com.dimitar.chatapp.databinding.*
 import com.dimitar.chatapp.di.AppModule
-import com.dimitar.chatapp.signin.SignInViewModel
+import com.dimitar.chatapp.ui.signin.SignInViewModel
 import com.dimitar.chatapp.util.User
 import kotlinx.coroutines.launch
 

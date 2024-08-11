@@ -1,10 +1,9 @@
-package com.dimitar.chatapp.signin
+package com.dimitar.chatapp.ui.signin
 
-import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dimitar.chatapp.MainActivity
+import com.dimitar.chatapp.data.SignInRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

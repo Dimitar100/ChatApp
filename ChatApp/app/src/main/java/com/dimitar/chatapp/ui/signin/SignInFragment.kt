@@ -1,4 +1,4 @@
-package com.dimitar.chatapp.signin
+package com.dimitar.chatapp.ui.signin
 
 import android.content.Intent
 import android.os.Bundle

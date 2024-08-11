@@ -1,4 +1,4 @@
-package com.dimitar.chatapp.signup
+package com.dimitar.chatapp.ui.signup
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import com.dimitar.chatapp.R
-import com.dimitar.chatapp.signin.SignInViewModel
+import com.dimitar.chatapp.ui.signin.SignInViewModel
 
 class SignUpFragment : Fragment() {
 

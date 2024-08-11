@@ -1,9 +1,7 @@
-package com.dimitar.chatapp.ui.chat
+package com.dimitar.chatapp.data
 
 import android.util.Log
-import com.dimitar.chatapp.data.Message
-import com.dimitar.chatapp.ui.home.Chat
-import com.dimitar.chatapp.ui.home.HomeViewModel
+import com.dimitar.chatapp.ui.chat.ChatViewModel
 import com.dimitar.chatapp.util.CurrentChat
 import com.dimitar.chatapp.util.User
 import kotlinx.serialization.json.Json
@@ -13,13 +11,9 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import okhttp3.Call
 import okhttp3.Callback
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
-import org.json.JSONException
-import org.json.JSONObject
 import java.io.IOException
 
 class MessagesRepository(

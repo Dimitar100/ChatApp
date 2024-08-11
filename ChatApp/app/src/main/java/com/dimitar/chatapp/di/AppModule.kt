@@ -2,7 +2,6 @@ package com.dimitar.chatapp.di
 
 import com.dimitar.chatapp.chat.ChatSocketService
 import com.dimitar.chatapp.chat.ChatSocketServiceImpl
-import com.dimitar.chatapp.data.MessageRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

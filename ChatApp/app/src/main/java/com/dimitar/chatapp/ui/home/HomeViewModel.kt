@@ -13,7 +13,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.dimitar.chatapp.data.ChatRepository
-import com.dimitar.chatapp.signin.SignInUiState
+import com.dimitar.chatapp.ui.signin.SignInUiState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -1,16 +1,9 @@
 package com.dimitar.chatapp.ui.chat
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
-import com.dimitar.chatapp.chat.ChatSocketServiceImpl
-import com.dimitar.chatapp.data.ChatRepository
 import com.dimitar.chatapp.data.Message
-import com.dimitar.chatapp.di.AppModule
-import com.dimitar.chatapp.signup.RegisterRepository
-import com.dimitar.chatapp.ui.home.Chat
-import com.dimitar.chatapp.ui.home.HomeUiState
+import com.dimitar.chatapp.data.MessagesRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

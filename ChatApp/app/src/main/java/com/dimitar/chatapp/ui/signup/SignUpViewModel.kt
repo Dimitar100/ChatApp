@@ -1,8 +1,8 @@
-package com.dimitar.chatapp.signup
+package com.dimitar.chatapp.ui.signup
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.dimitar.chatapp.signin.SignInRepository
+import com.dimitar.chatapp.data.RegisterRepository
 
 class SignUpViewModel : ViewModel() {
     // TODO: Implement the ViewModel

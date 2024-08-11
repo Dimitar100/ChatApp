@@ -1,4 +1,4 @@
-package com.dimitar.chatapp.signin
+package com.dimitar.chatapp.ui.signin
 
 data class SignInUiState(
     var isSignedIn: Boolean = false,
