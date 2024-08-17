@@ -32,20 +32,25 @@
         android:id="@+id/test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="184dp"
-        android:text="TEST"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:text="ChatName"
+        android:textColor="#673AB7"
+        android:textSize="28sp"
+        android:visibility="visible"
+        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMessages"
-        android:layout_width="409dp"
-        android:layout_height="597dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toTopOf="@+id/editTextMessage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/test"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

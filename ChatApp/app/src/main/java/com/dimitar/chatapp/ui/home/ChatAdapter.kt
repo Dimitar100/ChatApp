@@ -43,6 +43,7 @@ class ChatAdapter(
         holder.itemView.setOnClickListener {
             //HomeFragment.onClick()
             CurrentChat.Id = holder.chatId.text.toString().toInt()
+            CurrentChat.Name = holder.name.text.toString()
             homeFragment.findNavController().navigate(R.id.navigation_chat)
         }
     }

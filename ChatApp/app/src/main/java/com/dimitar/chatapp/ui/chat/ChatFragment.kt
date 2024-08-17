@@ -1,6 +1,5 @@
 package com.dimitar.chatapp.ui.chat
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,16 +14,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dimitar.chatapp.R
-import com.dimitar.chatapp.chat.ChatSocketServiceImpl
-import com.dimitar.chatapp.di.AppModule
-import com.dimitar.chatapp.ui.home.ChatAdapter
-import com.dimitar.chatapp.ui.home.HomeViewModel
-import com.dimitar.chatapp.ui.home.HomeViewModelFactory
 import com.dimitar.chatapp.util.CurrentChat
-import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
-import org.w3c.dom.Text
 
 class ChatFragment : Fragment() {
 
@@ -50,15 +41,13 @@ class ChatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val sendBtn: Button = requireView().findViewById(R.id.sendBtn)
-        val test : TextView = requireView().findViewById(R.id.test)
+        val chatName : TextView = requireView().findViewById(R.id.test)
         val editTextField: EditText = requireView().findViewById(R.id.editTextMessage)
 
         val chatViewModel: ChatViewModel by viewModels { ChatViewModelFactory() }
 
+        chatName.text = CurrentChat.Name
         sendBtn.setOnClickListener{
-            test.text = CurrentChat.Id.toString()
-            //viewModel.sendMsg(CurrentChat.Id, "HELLO THERE!")
-
             lifecycleScope.launch {
                 CurrentChat.chatSocketService?.sendMessage(editTextField.text.toString(), CurrentChat.Id)
                 editTextField.setText("")
