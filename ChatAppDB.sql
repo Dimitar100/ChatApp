@@ -52,6 +52,8 @@ delete from Users_Chats where ID > 0;
 
 delete from Chats where ID > 0;
 
+
+use ChatAppDB;
 delete from Messages where ID > 0;
 
 

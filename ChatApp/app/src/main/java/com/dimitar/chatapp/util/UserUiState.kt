@@ -1,4 +1,4 @@
-package com.dimitar.chatapp
+package com.dimitar.chatapp.util
 
 data class UserUiState(
     val isSignedIn: Boolean = false,
