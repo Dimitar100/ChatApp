@@ -45,7 +45,6 @@ class ChatFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
        // viewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
       //  viewModel.getMessages()
-        // TODO: Use the ViewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,14 +66,17 @@ class ChatFragment : Fragment() {
         }
 
         val recyclerView: RecyclerView = requireView().findViewById(R.id.recyclerViewMessages)
+        val layoutManager = LinearLayoutManager(this.requireContext())
+        layoutManager.stackFromEnd = true
+        recyclerView.layoutManager = layoutManager
+
         chatViewModel.getMessages()
         val chatFragment = this
         lifecycleScope.launch {
             chatViewModel.uiState.collect {
                 recyclerView.adapter = MessageAdapter(it.messages, chatFragment)
-                recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-                recyclerView.scrollToPosition(recyclerView.adapter!!.itemCount-1)
-
+             //   recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+              //  recyclerView.scrollToPosition(recyclerView.adapter!!.itemCount-1)
             }
         }
         lifecycleScope.launch {
