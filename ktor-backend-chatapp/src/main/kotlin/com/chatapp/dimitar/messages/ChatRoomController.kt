@@ -15,6 +15,7 @@ class ChatRoomController(
 ) {
 
     private val chatRooms = ConcurrentHashMap<Int, ConcurrentHashMap<String, ChatRoomMember>>()
+    private val allOnlineUsers = ConcurrentHashMap<String, ChatRoomMember>()
 
 
 
@@ -29,6 +30,9 @@ class ChatRoomController(
             sessionId = sessionId,
             socket = socket
         )
+
+        allOnlineUsers[user] = member
+
         val usersChats = chatDataSource.getUserChats(userDataSource.getUserByUsername(user)!!.id)
         usersChats.forEach {
             if(chatRooms.containsKey(it.id)){
@@ -72,5 +76,23 @@ class ChatRoomController(
             }
         }
         OnlineUsers.removeUser(username)
+        allOnlineUsers.remove(username)
+    }
+
+    suspend fun updateChatRoomsForUser(userId: Int){
+
+        val usersChats = chatDataSource.getUserChats(userId)
+        usersChats.forEach {
+            val chatId = it.id
+            if(!chatRooms.containsKey(chatId)){
+
+                val members = ConcurrentHashMap<String, ChatRoomMember>()
+                chatRooms[chatId] = members
+
+                chatDataSource.getParticipantsInChats(chatId).forEach{ user ->
+                    chatRooms[chatId]!![userDataSource.getUserById(user.id)!!.username] = allOnlineUsers[userDataSource.getUserById(user.id)!!.username]!!
+                }
+            }
+        }
     }
 }

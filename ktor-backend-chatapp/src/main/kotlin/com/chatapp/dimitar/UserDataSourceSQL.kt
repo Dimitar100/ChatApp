@@ -12,6 +12,11 @@ class UserDataSourceSQL(private val userDbManager: DataBaseManager) : UserDataSo
         return userDbManager.getUser(username)
     }
 
+    override suspend fun getUserById(userId: Int): DBUserEntity? {
+
+        return userDbManager.getUser(userId)
+    }
+
     override suspend fun insertUser(user: User): Boolean {
         return userDbManager.insertNewUser(user)
     }

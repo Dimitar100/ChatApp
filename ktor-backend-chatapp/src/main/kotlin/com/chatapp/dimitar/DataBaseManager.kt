@@ -108,6 +108,17 @@ class DataBaseManager {
         return res
     }
 
+    fun getParticipantsInChats(chatId: Int): List<DBUserEntity>{
+        val temp = ktormDatabase.sequenceOf(DBUserChatTable).filter { it.chatId eq chatId }.toList()
+        var res : List<DBUserEntity>  = ArrayList()
+
+        for(element in temp){
+            res = res.plus(element.userId)
+        }
+        //temp.forEach { res.plus(it.chatId) }
+        return res
+    }
+
     //Message Operations =========================================================================================
     fun getChatsMessages(chatId: Int): List<DBMessageEntity>{
         val temp = ktormDatabase.sequenceOf(DBMessagesTable).filter { it.chatId eq chatId }.toList()

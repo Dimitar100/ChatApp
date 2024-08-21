@@ -1,5 +1,6 @@
 package com.chatapp.dimitar.chats
 
+import com.chatapp.dimitar.DBUserEntity
 import com.chatapp.dimitar.DataBaseManager
 import com.chatapp.dimitar.User
 
@@ -27,4 +28,10 @@ class ChatDataSourceSQl(private val chatDbManager: DataBaseManager): ChatDataSou
     override suspend fun getUserChats(userId: Int): List<DBChatEntity> {
         return chatDbManager.getUsersChats(userId)
     }
+
+    override suspend fun getParticipantsInChats(chatId: Int): List<DBUserEntity> {
+        return chatDbManager.getParticipantsInChats(chatId)
+    }
+
+
 }

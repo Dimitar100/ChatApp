@@ -10,4 +10,5 @@ interface ChatDataSource {
     suspend fun insertParticipantInChat(user: String, chat: Int): Boolean
     suspend fun removeParticipantInChat(user: User, chat: Chat): Boolean
     suspend fun getUserChats(userId: Int): List<DBChatEntity>
+    suspend fun getParticipantsInChats(chatId: Int): List<DBUserEntity>
 }
