@@ -1,6 +1,7 @@
 package com.dimitar.chatapp
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -15,6 +16,8 @@ import com.dimitar.chatapp.databinding.ActivityMainBinding
 import com.dimitar.chatapp.di.AppModule
 import com.dimitar.chatapp.ui.chat.ChatFragment
 import com.dimitar.chatapp.ui.home.ChatAdapter
+import com.dimitar.chatapp.ui.home.HomeFragment
+import com.dimitar.chatapp.ui.home.HomeViewModel
 import com.dimitar.chatapp.util.CurrentChat
 import kotlinx.coroutines.launch
 
@@ -49,10 +52,23 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             CurrentChat.chatSocketService = ChatSocketServiceImpl(AppModule.provideHttpClient())
             (CurrentChat.chatSocketService as ChatSocketServiceImpl).initSession(username)
+
+            CurrentChat.chatSocketService?.observeMessages()!!.collect {
+                Log.d("INCOMING_FRAGMENT_1", it.content)
+                Log.d("CHECK", getCurrentDestinationLabel()!!)
+                if(getCurrentDestinationLabel().equals("ChatFragment")){
+                    ChatFragment.viewModel.getMessages()
+                }else{
+                    HomeFragment.viewModel.getAllChats()
+                }
+            }
+
         }
     }
 
-
+    fun getCurrentDestinationLabel(): String? {
+        return navController.currentDestination?.label?.toString()
+    }
 
 
 }

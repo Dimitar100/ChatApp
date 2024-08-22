@@ -20,7 +20,10 @@ import kotlinx.coroutines.launch
 class ChatFragment : Fragment() {
 
     companion object {
+
+        lateinit var viewModel: ChatViewModel
         fun newInstance() = ChatFragment()
+
     }
 
    // private lateinit var viewModel: ChatViewModel
@@ -46,6 +49,8 @@ class ChatFragment : Fragment() {
 
         val chatViewModel: ChatViewModel by viewModels { ChatViewModelFactory() }
 
+        viewModel = chatViewModel
+
         chatName.text = CurrentChat.Name
         sendBtn.setOnClickListener{
             lifecycleScope.launch {
@@ -68,12 +73,13 @@ class ChatFragment : Fragment() {
               //  recyclerView.scrollToPosition(recyclerView.adapter!!.itemCount-1)
             }
         }
-        lifecycleScope.launch {
+       /* lifecycleScope.launch {
             var messages = CurrentChat.chatSocketService?.observeMessages()
             messages!!.collect {
                 Log.d("INCOMING_FRAGMENT", it.content)
                 chatViewModel.getMessages()
             }
-        }
+        }*/
     }
+
 }

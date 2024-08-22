@@ -69,6 +69,7 @@ class HomeFragment : Fragment()  {
         User.username = username
 
         val homeViewModel: HomeViewModel by viewModels { HomeViewModelFactory(jwt) }
+        viewModel = homeViewModel
 
         val createChatDialog = Dialog(requireActivity())
         createChatDialog.setContentView(R.layout.create_chat_dialog)
@@ -105,6 +106,10 @@ class HomeFragment : Fragment()  {
 
 
 
+    }
+
+    companion object {
+        lateinit var viewModel: HomeViewModel
     }
 
     fun navigateToChat(){
